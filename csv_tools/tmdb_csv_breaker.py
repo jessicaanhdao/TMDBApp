@@ -9,8 +9,10 @@ movie_id_col='id'
 keyword_col='keywords'
 company_col='production_companies'
 country_col='production_countries'
+lang_col='spoken_languages'
 
 csv_codecs='cp1252'
+utf8_codec='utf-8'
 
 class TmdbCsvBreaker:
     def __init__(self):
@@ -32,6 +34,10 @@ class TmdbCsvBreaker:
         self.movie_country_table = dict() # {movie_id: [country_id]}
         self.country_table = dict() # {country_id: country_name}
 
+        # for spoken language
+        self.movie_lang_table = dict() # {movie_id: [lang_id]}
+        self.lang_table = dict() # {lang_id: lang_name}
+
     def breakdown(self):
         with codecs.open(movie_csv_filename, encoding=csv_codecs, errors ='replace') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -45,11 +51,13 @@ class TmdbCsvBreaker:
                 self.parse_keywords(movie_id, row)
                 self.parse_company(movie_id, row)
                 self.parse_country(movie_id, row)
+                self.parse_lang(movie_id, row)
             print('total lines parsed: {0}'.format(line_no))
         self.save_genres_csv()
         self.save_keywords_csv()
         self.save_company_csv()
         self.save_country_csv()
+        self.save_lang_csv()
         
     def parse_genres(self, movie_id, row):
         self.movie_genres_table[movie_id]=[]
@@ -67,7 +75,7 @@ class TmdbCsvBreaker:
     def save_genres_csv(self):
         movie_genres_filename = 'movie_genres.csv'
         movie_genres_fields = ['movie_id', 'genre_id', 'genre_name']
-        with codecs.open(movie_genres_filename, mode='w',encoding=csv_codecs, errors ='replace') as movie_genres_csv:
+        with codecs.open(movie_genres_filename, mode='w',encoding=utf8_codec, errors ='replace') as movie_genres_csv:
             writer = csv.DictWriter(movie_genres_csv, fieldnames=movie_genres_fields)
             writer.writeheader()
             for key, value in self.movie_genres_table.items():
@@ -94,7 +102,7 @@ class TmdbCsvBreaker:
     def save_keywords_csv(self):
         movie_keyword_filename = 'movie_keywords.csv'
         keyword_fields = ['movie_id', 'keyword_id', 'keyword_name']
-        with codecs.open(movie_keyword_filename, mode='w',encoding=csv_codecs, errors ='replace') as movie_keywords_csv:
+        with codecs.open(movie_keyword_filename, mode='w',encoding=utf8_codec, errors ='replace') as movie_keywords_csv:
             writer = csv.DictWriter(movie_keywords_csv, fieldnames=keyword_fields)
             writer.writeheader()
             for key, value in self.movie_keywords_table.items():
@@ -121,7 +129,7 @@ class TmdbCsvBreaker:
     def save_company_csv(self):
         company_csv_filename='movie_company.csv'
         company_fields = ['movie_id', 'company_id', 'company_name']
-        with codecs.open(company_csv_filename, mode='w',encoding=csv_codecs, errors ='replace') as movie_company_csv:
+        with codecs.open(company_csv_filename, mode='w',encoding=utf8_codec, errors ='replace') as movie_company_csv:
             writer = csv.DictWriter(movie_company_csv, fieldnames=company_fields)
             writer.writeheader()
             for key, value in self.movie_company_table.items():
@@ -148,7 +156,7 @@ class TmdbCsvBreaker:
     def save_country_csv(self):
         country_csv_filename = 'movie_country.csv'
         country_fields = ['movie_id', 'country_id', 'country_name']
-        with codecs.open(country_csv_filename, mode='w',encoding=csv_codecs, errors ='replace') as movie_country_csv:
+        with codecs.open(country_csv_filename, mode='w',encoding=utf8_codec, errors ='replace') as movie_country_csv:
             writer = csv.DictWriter(movie_country_csv, fieldnames=country_fields)
             writer.writeheader()
             for key, value in self.movie_country_table.items():
@@ -159,6 +167,33 @@ class TmdbCsvBreaker:
                     row[country_fields[2]] = self.country_table[country_id]
                     writer.writerow(row)
         print('{0} is written'.format(country_csv_filename))
+
+    def parse_lang(self, movie_id, row):
+        self.movie_lang_table[movie_id] = []
+        jsonStr = row[lang_col]
+        langObjs = self.json_decoder.decode(jsonStr)
+        for obj in langObjs:
+            lang_id = obj['iso_639_1']
+            lang_name = obj['name']
+            self.movie_lang_table[movie_id].append(lang_id)
+            if lang_id in self.lang_table.keys() and self.lang_table[lang_id] != lang_name:
+                print('WARNING lang_id={0} has multiple names'.format(lang_id))
+            self.lang_table[lang_id] = lang_name
+
+    def save_lang_csv(self):
+        lang_csv_filename = 'movie_lang.csv'
+        lang_fields = ['movie_id', 'lang_id', 'lang_name']
+        with codecs.open(lang_csv_filename, mode='w', encoding=utf8_codec, errors ='replace') as movie_lang_csv:
+            writer = csv.DictWriter(movie_lang_csv, fieldnames=lang_fields)
+            writer.writeheader()
+            for key, value in self.movie_lang_table.items():
+                for lang_id in value:
+                    row = dict()
+                    row[lang_fields[0]] = key
+                    row[lang_fields[1]] = lang_id
+                    row[lang_fields[2]] = self.lang_table[lang_id]
+                    writer.writerow(row)
+            print('{0} is written'.format(lang_csv_filename))
 
 if __name__ == '__main__':
     tmdb_csv_breaker = TmdbCsvBreaker()

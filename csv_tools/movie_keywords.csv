@@ -587,7 +587,7 @@ movie_id,keyword_id,keyword_name
 217,18524,refrigerator
 217,41586,archaeologist
 217,176731,indiana jones
-217,184134,archeology†
+217,184134,archeology¬†
 105864,1720,tyrannosaurus rex
 105864,9713,friends
 105864,12026,alternate history
@@ -2127,7 +2127,7 @@ movie_id,keyword_id,keyword_name
 8961,1568,undercover
 8961,1666,mexican standoff
 8961,1941,ecstasy
-8961,7963,guant·namo
+8961,7963,guant√°namo
 8961,10089,slaughter
 8961,10950,shootout
 8961,12371,gunfight
@@ -2795,7 +2795,7 @@ movie_id,keyword_id,keyword_name
 2024,10292,gore
 2024,10364,mission
 163,9663,sequel
-163,159480,fabergÈ egg
+163,159480,faberg√© egg
 163,159488,dutch eastindian company
 163,159490,second
 163,159491,part
@@ -3289,7 +3289,7 @@ movie_id,keyword_id,keyword_name
 2059,1454,treasure
 2059,6956,treasure hunt
 2059,41586,archaeologist
-2059,184134,archeology†
+2059,184134,archeology¬†
 2486,818,based on novel
 2486,5457,mythical creature
 2486,12554,dragon
@@ -3494,7 +3494,7 @@ movie_id,keyword_id,keyword_name
 11692,18069,laser gun
 22972,41177,weapon of mass destruction
 22972,41178,baghdad
-22972,41179,iraqi†
+22972,41179,iraqi¬†
 227973,11825,based on comic strip
 227973,18035,family
 227973,209714,3d
@@ -3543,7 +3543,7 @@ movie_id,keyword_id,keyword_name
 77953,6078,politics
 77953,6083,politician
 77953,6085,election campaign
-77953,181654,†north carolinam
+77953,181654,¬†north carolinam
 77953,181655,congressman
 77953,181656,political candidate
 77953,181657,moustache
@@ -3670,7 +3670,7 @@ movie_id,keyword_id,keyword_name
 1995,6956,treasure hunt
 1995,41586,archaeologist
 1995,41645,based on video game
-1995,184134,archeology†
+1995,184134,archeology¬†
 157353,310,artificial intelligence
 157353,1576,technology
 157353,2651,nanotechnology
@@ -3746,7 +3746,7 @@ movie_id,keyword_id,keyword_name
 32657,1299,monster
 32657,2036,greek mythology
 32657,9649,god
-32657,44365,poseidon †
+32657,44365,poseidon ¬†
 32657,68838,lightning bolt
 32657,223438,based on young adult novel
 607,1308,secret identity
@@ -4024,7 +4024,7 @@ movie_id,keyword_id,keyword_name
 1996,12354,hong kong
 1996,41586,archaeologist
 1996,41645,based on video game
-1996,184134,archeology†
+1996,184134,archeology¬†
 291805,212,london england
 291805,478,china
 291805,2343,magic
@@ -4064,7 +4064,7 @@ movie_id,keyword_id,keyword_name
 46195,18165,animal
 46195,179431,duringcreditsstinger
 46195,236475,rio 1
-46195,236476,rÌo 1
+46195,236476,r√≠o 1
 2277,803,android
 2277,3249,hologram
 2277,6089,freedom
@@ -4213,7 +4213,7 @@ movie_id,keyword_id,keyword_name
 76492,12377,zombie
 76492,160130,invisible man
 76492,179431,duringcreditsstinger
-76492,179860,†nosferatu
+76492,179860,¬†nosferatu
 76492,181068,protective father
 76492,231407,fang vamp
 4523,351,poison
@@ -4843,7 +4843,7 @@ movie_id,keyword_id,keyword_name
 11618,172801,insomniac
 11618,172808,paranormal activity
 11618,172812,logbook
-11618,172815,†strange noise
+11618,172815,¬†strange noise
 11618,172816,spook
 11618,172822,cherub
 2300,6075,sport
@@ -5523,7 +5523,7 @@ movie_id,keyword_id,keyword_name
 2539,4034,class society
 2539,5083,hysteria
 2539,5565,biography
-2539,5616,united statesñmexico barrier
+2539,5616,united states‚Äìmexico barrier
 2539,5625,relationship problems
 2539,6069,class
 2539,6277,language course
@@ -6014,7 +6014,7 @@ movie_id,keyword_id,keyword_name
 2756,14785,underwater
 2756,155334,scuba
 2756,162351,deepsea
-2756,185477,trapped underwater†
+2756,185477,trapped underwater¬†
 2756,233020,thalassophobia
 33909,179431,duringcreditsstinger
 49017,3133,vampire
@@ -7155,7 +7155,7 @@ movie_id,keyword_id,keyword_name
 19899,179430,aftercreditsstinger
 19899,179431,duringcreditsstinger
 19899,215533,french polynesia
-19899,215534,polynÈsie franÁaise
+19899,215534,polyn√©sie fran√ßaise
 2119,6315,stock-car-race
 2119,6316,daytona
 2119,9844,car crash
@@ -7918,7 +7918,7 @@ movie_id,keyword_id,keyword_name
 1813,211062,ethics
 1813,226791,gainesville florida
 87428,181514,deadbeat dad
-87428,181518,cheating fiancÈe
+87428,181518,cheating fianc√©e
 87428,181523,teacher student sex
 87428,181531,brother sister incest
 8840,2343,magic
@@ -8332,7 +8332,7 @@ movie_id,keyword_id,keyword_name
 8818,549,prostitute
 8818,165707,deification
 8818,165713,dancehall hostess
-8818,165716,perÛnism
+8818,165716,per√≥nism
 8818,165718,argentine president
 8818,165725,rise to power
 8818,165727,singing narrator
@@ -8530,7 +8530,7 @@ movie_id,keyword_id,keyword_name
 14623,10988,based on tv series
 14623,12393,golden gate bridge
 14623,33725,locker
-14623,176253,oil rig†
+14623,176253,oil rig¬†
 14623,188178,teenage hero
 14623,188179,soaked clothes
 14623,207560,thunderbirds
@@ -9594,7 +9594,7 @@ movie_id,keyword_id,keyword_name
 10047,570,rape
 10047,4063,siege
 10047,5565,biography
-10047,8698,orlÈans
+10047,8698,orl√©ans
 10047,8700,charles vii.
 10047,190532,false history
 10047,190855,joan of arc
@@ -9726,7 +9726,7 @@ movie_id,keyword_id,keyword_name
 1900,3391,drug smuggle
 1900,4436,addicted
 1900,4668,police operation
-1900,5616,united statesñmexico barrier
+1900,5616,united states‚Äìmexico barrier
 1900,6782,addiction
 1900,18026,drug lord
 89,83,saving the world
@@ -9746,7 +9746,7 @@ movie_id,keyword_id,keyword_name
 89,14656,order of the templars
 89,41586,archaeologist
 89,176731,indiana jones
-89,184134,archeology†
+89,184134,archeology¬†
 96724,818,based on novel
 96724,3563,st. petersburg russia
 96724,165282,high society
@@ -11292,7 +11292,7 @@ movie_id,keyword_id,keyword_name
 9889,3363,hypnosis
 9889,4539,overweight man
 9889,8663,overweight woman
-9889,8664,oberfl‰chlichkeit
+9889,8664,oberfl√§chlichkeit
 9889,8665,kompliment
 9889,9974,obesity
 9889,156092,fat suit
@@ -11429,7 +11429,7 @@ movie_id,keyword_id,keyword_name
 68179,10685,escape
 68179,13194,planet
 68179,14626,astronaut
-68179,231097,??
+68179,231097,ŒìŒ∑
 68179,234778,mission control
 1579,1465,loss of family
 1579,2642,solar eclipse
@@ -11472,7 +11472,7 @@ movie_id,keyword_id,keyword_name
 708,3540,bratislava
 708,3541,afghanistan
 708,3800,airplane
-708,5886,schloss schˆnbrunn
+708,5886,schloss sch√∂nbrunn
 708,10685,escape
 708,186450,moscow
 708,233055,vienna
@@ -11775,7 +11775,7 @@ movie_id,keyword_id,keyword_name
 1833,165770,hiv positive
 1833,165787,home movie
 1833,165798,mugging
-1833,165803,telephone call †
+1833,165803,telephone call ¬†
 1833,199856,lower east side
 10391,1156,sister sister relationship
 10391,1646,autism
@@ -12202,7 +12202,7 @@ movie_id,keyword_id,keyword_name
 12312,1189,profession
 12312,3436,karate
 12312,5600,daughter
-12312,9576,befˆrderung
+12312,9576,bef√∂rderung
 12312,155816,ex-wife
 12312,192828,parking
 12312,212330,slap
@@ -12690,7 +12690,7 @@ movie_id,keyword_id,keyword_name
 11638,931,jealousy
 11638,3453,parents-in-law
 11638,199093,trouble
-11638,208764,fiancÈe
+11638,208764,fianc√©e
 409,487,cairo
 409,1160,egypt
 409,1284,identity
@@ -12932,7 +12932,7 @@ movie_id,keyword_id,keyword_name
 49530,4978,immortality
 49530,10562,on the run
 49530,14514,class differences
-49530,41616,cops and robbers†
+49530,41616,cops and robbers¬†
 49530,220487,rich vs poor
 34806,5091,kiss
 34806,5098,sperm bank
@@ -13369,7 +13369,7 @@ movie_id,keyword_id,keyword_name
 9616,14819,violence
 9616,157008,catholic church
 9616,172762,sin eater
-9616,172772,mentor protÈgÈ relationship
+9616,172772,mentor prot√©g√© relationship
 9616,172792,reference to god
 9616,204017,suspicious death
 13056,10525,broken neck
@@ -13549,10 +13549,10 @@ movie_id,keyword_id,keyword_name
 10877,3692,scandal
 10877,4918,shadowing
 10877,6149,police
-9600,228342,????
-9600,228343,????
-9600,228344,big???
-9600,228345,????
+9600,228342,ÁªùÂú∞Â•∂Èú∏
+9600,228343,ÂçßÂ∫ïËÇ•Â¶à
+9600,228344,bigÁàÜ‰ªªÂä°
+9600,228345,Ë∂ÖÁ∫ßÂ¶àÂ¶à
 202575,2343,magic
 202575,209714,3d
 71469,14909,alien invasion
@@ -13965,7 +13965,7 @@ movie_id,keyword_id,keyword_name
 120467,11159,wartime
 120467,12371,gunfight
 120467,14604,theft
-120467,172772,mentor protÈgÈ relationship
+120467,172772,mentor prot√©g√© relationship
 120467,181046,european
 120467,188688,hotel lobby
 120467,207257,renaissance painting
@@ -15337,7 +15337,7 @@ movie_id,keyword_id,keyword_name
 87,174476,eating brains
 87,174480,splits
 87,176731,indiana jones
-87,184134,archeology†
+87,184134,archeology¬†
 14444,380,brother brother relationship
 14444,1009,baby
 14444,1526,home
@@ -16347,7 +16347,7 @@ movie_id,keyword_id,keyword_name
 6977,1556,texas
 6977,2149,drug traffic
 6977,2708,hitman
-6977,5616,united statesñmexico barrier
+6977,5616,united states‚Äìmexico barrier
 6977,9937,suspense
 168530,4668,police operation
 168530,15090,police officer
@@ -16963,7 +16963,7 @@ movie_id,keyword_id,keyword_name
 22825,163190,box
 11152,5566,maya civilization
 11152,8183,carnivorous plant
-11152,9236,canc˙n
+11152,9236,canc√∫n
 11152,162715,ruins
 1831,237,gay
 1831,970,parents kids relationship
@@ -17274,7 +17274,7 @@ movie_id,keyword_id,keyword_name
 859,1332,cheating
 859,2045,cynic
 859,2336,ladykiller
-859,2687,fiancÈ
+859,2687,fianc√©
 859,2692,arranged marriage
 859,2983,passion
 859,3182,seduction
@@ -17942,7 +17942,7 @@ movie_id,keyword_id,keyword_name
 19366,6133,industry
 19366,10232,fame
 19366,10410,conspiracy
-19366,15175,subliminal†
+19366,15175,subliminal¬†
 19366,18001,rock band
 19366,162710,culture
 19366,187056,woman director
@@ -18297,7 +18297,7 @@ movie_id,keyword_id,keyword_name
 85,11105,swastika
 85,41586,archaeologist
 85,176731,indiana jones
-85,184134,archeology†
+85,184134,archeology¬†
 772,65,holiday
 772,242,new york
 772,14512,new york city
@@ -19137,7 +19137,7 @@ movie_id,keyword_id,keyword_name
 9582,9713,friends
 9582,12541,misunderstanding
 9582,13027,wedding
-9582,208764,fiancÈe
+9582,208764,fianc√©e
 10642,3616,college
 10642,178226,lost and found
 10642,178229,older brother younger sister
@@ -19393,7 +19393,7 @@ movie_id,keyword_id,keyword_name
 9716,190161,parolee
 9716,197362,x-ray
 9716,199232,jeweler
-9716,208764,fiancÈe
+9716,208764,fianc√©e
 11835,697,loss of son
 11835,1522,repayment
 11835,9748,revenge
@@ -19467,7 +19467,7 @@ movie_id,keyword_id,keyword_name
 46435,10904,telephone call
 46435,11333,cigar smoking
 46435,33719,drink
-46435,40831,†gilbert and sullivan
+46435,40831,¬†gilbert and sullivan
 46435,40832,gilbert and sullivan's princess ida
 46435,40837,piano duet
 46435,40838,lyricist
@@ -19508,7 +19508,7 @@ movie_id,keyword_id,keyword_name
 82684,1669,wave
 82684,5349,surfing
 82684,6075,sport
-82684,172772,mentor protÈgÈ relationship
+82684,172772,mentor prot√©g√© relationship
 82684,184569,santa cruz california
 12142,703,detective
 12142,1299,monster
@@ -21385,7 +21385,7 @@ movie_id,keyword_id,keyword_name
 10956,6230,looking for  birth parents
 10956,10221,meteorite
 10956,10756,janitor
-10956,13091,†
+10956,13091,¬†
 10956,187056,woman director
 9594,2143,loss of parents
 9594,3436,karate
@@ -21861,7 +21861,7 @@ movie_id,keyword_id,keyword_name
 9587,10721,pregnant
 9587,33513,desire
 9587,174566,chalkboard
-9587,174570,†nightgown
+9587,174570,¬†nightgown
 9587,174571,louisa may alcott
 9587,174584,birth of twins
 9587,187056,woman director
@@ -22542,7 +22542,7 @@ movie_id,keyword_id,keyword_name
 19265,172240,limp
 36047,187056,woman director
 8053,2296,border patrol
-8053,5616,united statesñmexico barrier
+8053,5616,united states‚Äìmexico barrier
 8053,6044,promise
 8053,18034,desert
 2290,835,jewry
@@ -22906,7 +22906,7 @@ movie_id,keyword_id,keyword_name
 9877,34079,death
 62008,12532,african american
 62008,14768,single mother
-62008,165547,fiancÈ fiancÈe relationship
+62008,165547,fianc√© fianc√©e relationship
 62008,188950,corporation
 62008,189141,rich man - poor woman
 12227,818,based on novel
@@ -23011,7 +23011,7 @@ movie_id,keyword_id,keyword_name
 34152,577,black people
 34152,1228,1970s
 34152,3017,jazz musician
-34152,6979,straﬂenkids
+34152,6979,stra√üenkids
 34152,10041,dysfunctional family
 34152,10183,independent film
 34152,10508,teacher
@@ -23585,7 +23585,7 @@ movie_id,keyword_id,keyword_name
 47502,154855,wedding anniversary
 47502,187844,flashback
 9950,3012,court case
-9950,4171,staatsanw‰ltin
+9950,4171,staatsanw√§ltin
 9950,7629,family clan
 9950,13142,gangster
 84892,367,shyness
@@ -24132,7 +24132,7 @@ movie_id,keyword_id,keyword_name
 284296,4434,interview
 284296,12193,reporter
 284296,162262,movie star
-284296,165547,fiancÈ fiancÈe relationship
+284296,165547,fianc√© fianc√©e relationship
 31915,1299,monster
 31915,1852,mutant
 31915,9794,toxic
@@ -24509,7 +24509,7 @@ movie_id,keyword_id,keyword_name
 4170,3973,insurance salesman
 4170,4752,punter
 4170,5301,brother
-4170,5616,united statesñmexico barrier
+4170,5616,united states‚Äìmexico barrier
 4170,5923,sister
 4170,6019,human trafficking
 4170,10084,rescue
@@ -25334,7 +25334,7 @@ movie_id,keyword_id,keyword_name
 10135,1605,new love
 10135,2236,protection money
 10135,2334,nightclub
-10135,8730,rausschmeiﬂer
+10135,8730,rausschmei√üer
 10135,9748,revenge
 10135,160488,hoodlum
 10135,174244,brawl
@@ -25455,7 +25455,7 @@ movie_id,keyword_id,keyword_name
 9526,1004,commercial
 9526,3740,radio presenter
 9526,4305,radio transmission
-9526,9248,b¸hnenauftritt
+9526,9248,b√ºhnenauftritt
 9526,9249,backstage
 9526,10229,singer
 11545,3551,private school
@@ -25705,7 +25705,7 @@ movie_id,keyword_id,keyword_name
 209403,215292,anger issues
 7942,494,father son relationship
 7942,1605,new love
-7942,2687,fiancÈ
+7942,2687,fianc√©
 7942,4613,training
 7942,6432,rent
 7942,6921,jogging
@@ -25834,7 +25834,7 @@ movie_id,keyword_id,keyword_name
 68812,14831,stabbing
 68812,33421,crime family
 68812,33702,bombing
-68812,157481,ice cream man †
+68812,157481,ice cream man ¬†
 68812,168179,drug deal
 68812,177964,contract killer
 68812,190636,crime syndicate
@@ -26487,7 +26487,7 @@ movie_id,keyword_id,keyword_name
 1808,154937,bisexual
 1808,174262,music journalism
 1808,174272,school uniform
-1808,174274,†begins with text
+1808,174274,¬†begins with text
 1808,174280,imaginary band
 1808,174281,baby left on doorstep
 1808,174283,fictional band
@@ -26817,7 +26817,7 @@ movie_id,keyword_id,keyword_name
 235,10683,coming of age
 235,169875,railroad track
 235,169878,story within the story
-235,169885,†flipping coin
+235,169885,¬†flipping coin
 235,169886,campfire story
 235,169887,reference to superman
 235,169895,normandy beach
@@ -27024,7 +27024,7 @@ movie_id,keyword_id,keyword_name
 37735,189868,rumor
 10873,2793,film director
 10873,3633,dracula
-10873,179860,†nosferatu
+10873,179860,¬†nosferatu
 51588,641,single parent
 51588,828,waitress
 51588,2098,fountain
@@ -27884,7 +27884,7 @@ movie_id,keyword_id,keyword_name
 39210,2706,milan
 39210,10183,independent film
 39210,182100,luxury hotel
-39210,182108,man in towel†
+39210,182108,man in towel¬†
 39210,187056,woman director
 30128,293,female nudity
 30128,818,based on novel
@@ -27988,7 +27988,7 @@ movie_id,keyword_id,keyword_name
 334527,199093,trouble
 334527,210295,classmates
 334527,221004,investment
-334527,236534,b?nˆs utakon
+334527,236534,b≈±n√∂s utakon
 2211,220,berlin
 2211,2606,jew
 2211,3691,forbidden love
@@ -28212,7 +28212,7 @@ movie_id,keyword_id,keyword_name
 338,1872,loss of father
 338,3461,lenin
 338,9457,single
-338,13091,†
+338,13091,¬†
 338,229388,filmes contra o comunismo
 21641,392,england
 21641,5858,leeds united
@@ -28374,7 +28374,7 @@ movie_id,keyword_id,keyword_name
 11452,10081,locker room
 11452,155556,doggystyle
 11452,171183,flirting
-11452,171184,exposÈ
+11452,171184,expos√©
 11452,171192,pug
 11452,171197,bon bon
 11452,171198,fraternity pledge
@@ -29059,7 +29059,7 @@ movie_id,keyword_id,keyword_name
 29912,5049,ancient rome
 11843,642,robbery
 11843,1384,diamant
-11843,2408,cÙte d'azur
+11843,2408,c√¥te d'azur
 11843,5439,inspector
 11843,8775,panther
 11284,1453,amnesia
@@ -31507,7 +31507,7 @@ movie_id,keyword_id,keyword_name
 10991,6054,friendship
 10991,10988,based on tv series
 10991,11336,young boy
-10991,11451,pokÈmon
+10991,11451,pok√©mon
 10991,12392,best friend
 10991,14955,fighting
 10991,41645,based on video game
@@ -34050,7 +34050,7 @@ movie_id,keyword_id,keyword_name
 43884,186009,tragic death
 43884,188270,epic battle
 43884,204183,crimea
-43884,208764,fiancÈe
+43884,208764,fianc√©e
 43884,232235,brothers
 43884,238130,brothers love same woman
 43884,238196,the light brigade
@@ -35986,7 +35986,7 @@ movie_id,keyword_id,keyword_name
 33468,1706,experiment
 33468,1852,mutant
 33468,2588,brain
-33468,2687,fiancÈ
+33468,2687,fianc√©
 33468,3262,surgeon
 33468,3688,strip club
 33468,6593,stripper
@@ -36178,7 +36178,7 @@ movie_id,keyword_id,keyword_name
 14337,10183,independent film
 14337,14779,paradox
 14337,162356,mechanical engineering
-9367,5616,united statesñmexico barrier
+9367,5616,united states‚Äìmexico barrier
 9367,33649,legs
 9367,162740,arms
 9367,187891,paper knife
