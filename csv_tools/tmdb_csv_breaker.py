@@ -39,7 +39,7 @@ class TmdbCsvBreaker:
         self.lang_table = dict() # {lang_id: lang_name}
 
     def breakdown(self):
-        with codecs.open(movie_csv_filename, encoding=csv_codecs, errors ='replace') as csvfile:
+        with codecs.open(movie_csv_filename, encoding=utf8_codec, errors ='replace') as csvfile:
             reader = csv.DictReader(csvfile)
             #print("field names: {0}".format(reader.fieldnames))
             line_no = 0
