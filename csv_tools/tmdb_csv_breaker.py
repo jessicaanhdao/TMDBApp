@@ -3,7 +3,9 @@ import json
 import codecs
 
 movie_csv_filename='tmdb_5000_movies.csv'
+credits_csv_filename='tmdb_5000_credits.csv'
 
+# tmdb_5000_movies.csv
 genres_col='genres'
 movie_id_col='id'
 keyword_col='keywords'
@@ -11,6 +13,11 @@ company_col='production_companies'
 country_col='production_countries'
 lang_col='spoken_languages'
 
+# tmdb_5000_credits.csv
+cast_col='cast' 
+movie_id_col2='movie_id'
+
+# codecs
 csv_codecs='cp1252'
 utf8_codec='utf-8'
 
@@ -38,7 +45,73 @@ class TmdbCsvBreaker:
         self.movie_lang_table = dict() # {movie_id: [lang_id]}
         self.lang_table = dict() # {lang_id: lang_name}
 
+        # for movie actor
+        self.movie_actor_table = dict()
+        self.actor_table = dict()
+
     def breakdown(self):
+        self.breakdown_movie_csv()
+        self.breakdown_credit_csv()
+    
+    def breakdown_credit_csv(self):
+        with codecs.open(credits_csv_filename, encoding=utf8_codec, errors='replpace') as csvfile:
+            reader = csv.DictReader(csvfile)
+            line_no = 0
+            for row in reader:
+                line_no += 1
+                cast_json_str = row[cast_col]
+                cast_json_objs = self.json_decoder.decode(cast_json_str)
+                idStr = row[movie_id_col2]
+                movie_id = int(idStr.strip())
+                self.movie_actor_table[movie_id] = cast_json_objs
+                for obj in cast_json_objs:
+                    self.process_cast(obj)
+            print('{0}, total lines parsed: {1}'.format(credits_csv_filename, line_no))
+        self.save_movie_actor_csv()
+        self.save_actor_csv()
+
+    def process_cast(self, cast_json):
+        '''
+        actor_id, name, gender
+        '''
+        actor_id = cast_json['id']
+        actor_name = cast_json['name']
+        actor_gender = cast_json['gender']
+        if actor_id in self.actor_table.keys() and actor_name != self.actor_table[actor_id][0]:
+            print('WARNING actor_id={0} has multiple name'.format(actor_id))
+        self.actor_table[actor_id] = (actor_name, actor_gender)
+
+    def save_movie_actor_csv(self):
+        movie_actor_filename = 'movie_actors.csv'
+        movie_actor_fields = ['movie_id', 'actor_id', 'cast_id', 'character']
+        with codecs.open(movie_actor_filename, mode='w',encoding=utf8_codec, errors ='replace') as movie_actor_csv:
+            writer = csv.DictWriter(movie_actor_csv, fieldnames=movie_actor_fields)
+            writer.writeheader()
+            for key, value in self.movie_actor_table.items():
+                for cast_obj in value:
+                    row = dict()
+                    row['movie_id'] = key
+                    row['actor_id'] = cast_obj['id']
+                    row['cast_id'] = cast_obj['cast_id']
+                    row['character'] = cast_obj['character']
+                    writer.writerow(row)
+        print('{0} is written'.format(movie_actor_filename))
+
+    def save_actor_csv(self):
+        actor_filename = 'actors.csv'
+        actor_fields = ['actor_id', 'name', 'gender']
+        with codecs.open(actor_filename, mode='w',encoding=utf8_codec, errors ='replace') as actor_csv:
+            writer = csv.DictWriter(actor_csv, fieldnames=actor_fields)
+            writer.writeheader()
+            for key, value in self.actor_table.items():
+                row = dict()
+                row['actor_id'] = key
+                row['name'] = value[0]
+                row['gender'] = value[1]
+                writer.writerow(row)
+        print('{0} is written'.format(actor_filename))
+
+    def breakdown_movie_csv(self):
         with codecs.open(movie_csv_filename, encoding=utf8_codec, errors ='replace') as csvfile:
             reader = csv.DictReader(csvfile)
             #print("field names: {0}".format(reader.fieldnames))
@@ -52,13 +125,13 @@ class TmdbCsvBreaker:
                 self.parse_company(movie_id, row)
                 self.parse_country(movie_id, row)
                 self.parse_lang(movie_id, row)
-            print('total lines parsed: {0}'.format(line_no))
+            print('{0}, total lines parsed: {1}'.format(movie_csv_filename, line_no))
         self.save_genres_csv()
         self.save_keywords_csv()
         self.save_company_csv()
         self.save_country_csv()
         self.save_lang_csv()
-        
+
     def parse_genres(self, movie_id, row):
         self.movie_genres_table[movie_id]=[]
         jsonObjStr = row[genres_col]
