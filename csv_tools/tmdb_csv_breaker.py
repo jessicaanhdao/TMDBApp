@@ -49,6 +49,8 @@ class TmdbCsvBreaker:
         self.movie_actor_table = dict()
         self.actor_table = dict()
 
+        self.movie_ids = set()
+
     def breakdown(self):
         self.breakdown_movie_csv()
         self.breakdown_credit_csv()
@@ -58,14 +60,24 @@ class TmdbCsvBreaker:
             reader = csv.DictReader(csvfile)
             line_no = 0
             for row in reader:
-                line_no += 1
                 cast_json_str = row[cast_col]
                 cast_json_objs = self.json_decoder.decode(cast_json_str)
                 idStr = row[movie_id_col2]
                 movie_id = int(idStr.strip())
-                self.movie_actor_table[movie_id] = cast_json_objs
-                for obj in cast_json_objs:
-                    self.process_cast(obj)
+                if movie_id not in self.movie_ids:
+                    continue
+                else:
+                    line_no += 1
+                # self.movie_actor_table[movie_id] = cast_json_objs
+                self.movie_actor_table[movie_id] = []
+                _i = 0
+                while len(self.movie_actor_table[movie_id]) < 11:
+                    if _i >= len(cast_json_objs):
+                        break
+                    self.movie_actor_table[movie_id].append(cast_json_objs[_i])
+                    for obj in cast_json_objs:
+                        self.process_cast(obj)
+                    _i += 1
             print('{0}, total lines parsed: {1}'.format(credits_csv_filename, line_no))
         self.save_movie_actor_csv()
         self.save_actor_csv()
@@ -118,14 +130,18 @@ class TmdbCsvBreaker:
             #print("field names: {0}".format(reader.fieldnames))
             line_no = 0
             for row in reader:
-                line_no += 1
                 idStr = row[movie_id_col]
                 movie_id = int(idStr.strip())
+                if len(self.movie_ids) >= 1200:
+                    break
+                else:
+                    line_no += 1
                 self.parse_genres(movie_id, row)
                 self.parse_keywords(movie_id, row)
                 self.parse_company(movie_id, row)
                 self.parse_country(movie_id, row)
                 self.parse_lang(movie_id, row)
+                self.movie_ids.add(movie_id)
             print('{0}, total lines parsed: {1}'.format(movie_csv_filename, line_no))
         self.save_genres_csv()
         self.save_keywords_csv()
