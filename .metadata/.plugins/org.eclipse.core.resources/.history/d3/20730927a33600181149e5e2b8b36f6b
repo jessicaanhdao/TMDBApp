@@ -1,0 +1,34 @@
+.root {
+	 -fx-font-family: "Helvetica Neue";
+       
+}
+.menu-bar{
+  -fx-background-color: #EDC7B7;
+   -fx-border-width: 2;
+ display: flex;
+    justify-content: space-between;
+
+}
+
+.menu-bar .label {
+    -fx-font-size: 25 pt;
+-fx-text-fill: #AC3B61;
+
+}
+
+
+.menu:hover {
+    -fx-background-color: #85DCB;
+}
+.menu {
+	-fx-pref-width: 250px;
+  -fx-pref-height: 40px;
+  -fx-padding: 5px 16px 5px 16px;
+    
+}
+.menu-item .label{
+	-fx-content-display: center;
+     -fx-font-size: 25 pt;
+    -fx-label-line-length: 8;
+      
+      }

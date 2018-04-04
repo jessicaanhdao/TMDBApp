@@ -1,0 +1,11 @@
+package movie.view;
+
+import javafx.fxml.FXML;
+
+public class MainViewController {
+
+	@FXML
+	private void goToMovieList() {
+		 
+	}
+}

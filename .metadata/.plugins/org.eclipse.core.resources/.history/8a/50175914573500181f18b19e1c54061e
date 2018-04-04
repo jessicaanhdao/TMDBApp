@@ -1,0 +1,19 @@
+package movie;
+
+import javafx.application.Application;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+	private Stage primaryStage;
+	private AnchorPane mainLayout;
+	@Override
+	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		this.primaryStage.setTitle("TMBD App");
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
