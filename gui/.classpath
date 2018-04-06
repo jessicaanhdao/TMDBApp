@@ -2,9 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="D:/jfoenix-8.0.1.jar"/>
-	<classpathentry kind="lib" path="D:/scenebuilder-8.4.1-all.jar"/>
-	<classpathentry kind="lib" path="D:/scenebuilder-9.0.1-all.jar"/>
-	<classpathentry kind="lib" path="D:/controlsfx-8.40.14.jar"/>
+	<classpathentry kind="lib" path="libs/jfoenix-8.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/controlsfx-8.40.14.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
