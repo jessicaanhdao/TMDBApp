@@ -1,6 +1,7 @@
 package movie;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import movie.database.DBHandler;
-import movie.database.GenreTable;
+import movie.database.GenreTuple;
+import movie.database.MovieTuple;
 
 public class Main extends Application {
 	private Stage primaryStage;
@@ -49,10 +51,16 @@ public class Main extends Application {
 		DBHandler db = new DBHandler();
 		if (db.isServerAlive()) {
 			System.out.println("connected successfully");
-			GenreTable genres = db.getGenres();
-			for (String id: genres.getGenreIds()) {
-				System.out.println(genres.getGenreName(id));
+			Map<String, GenreTuple> genres = db.getGenres();
+			for (Map.Entry<String, GenreTuple> e: genres.entrySet()) {
+				System.out.println(e.getValue().getGenreName());
 			}
+		}
+		// actor id = 65731, name = Sam Worthington
+		System.out.println("Sam Worthington is in following movies");
+		Map<String, MovieTuple.Compact> movies = db.getMovieInfoByActor("65731");
+		for (Map.Entry<String, MovieTuple.Compact> e: movies.entrySet()) {
+			System.out.println(e.getValue().getTitle());
 		}
 		launch(args);
 	}

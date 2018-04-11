@@ -20,10 +20,9 @@ class Server {
         conn = DriverManager.getConnection(Url, UserName, Password);
         stmt = conn.createStatement();
 	}
-
-	public ResultSet execQuery(String sql) throws SQLException {
-		ResultSet r = stmt.executeQuery (sql);
-		return r;
+	
+	public Connection getConnection() {
+		return conn;
 	}
 	
 	public void shutdown() {
