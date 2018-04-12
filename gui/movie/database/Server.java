@@ -11,22 +11,30 @@ class Server {
 	private static String Password = "MCHIEN";
 	
 	private Connection conn;
-	private Statement stmt;
 	
 	public Server() throws SQLException {
 		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
         System.out.println("DB Driver is registered");
         conn = DriverManager.getConnection(Url, UserName, Password);
-        stmt = conn.createStatement();
 	}
 	
+	
+	
+	@Override
+	protected void finalize() throws Throwable {
+		System.out.println("finalize");
+		conn.close();
+		super.finalize();
+	}
+
+
+
 	public Connection getConnection() {
 		return conn;
 	}
 	
 	public void shutdown() {
 		try {
-			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
