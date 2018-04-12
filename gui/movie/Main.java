@@ -1,6 +1,7 @@
 package movie;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javafx.application.Application;
@@ -47,21 +48,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		// TODO test
-		DBHandler db = new DBHandler();
-		if (db.isServerAlive()) {
-			System.out.println("connected successfully");
-			Map<String, GenreTuple> genres = db.getGenres();
-			for (Map.Entry<String, GenreTuple> e: genres.entrySet()) {
-				System.out.println(e.getValue().getGenreName());
-			}
-		}
-		// actor id = 65731, name = Sam Worthington
-		System.out.println("Sam Worthington is in following movies");
-		Map<String, MovieTuple.Compact> movies = db.getMovieInfoByActor("65731");
-		for (Map.Entry<String, MovieTuple.Compact> e: movies.entrySet()) {
-			System.out.println(e.getValue().getTitle());
-		}
+		DBHandler.test();
 		launch(args);
 	}
 }

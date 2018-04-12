@@ -36,6 +36,25 @@ public class MovieTuple {
 		}
 	};
 	
+	public static class Cast {
+		public static final String CharName = "char_name";
+		
+		public Cast(ActorTuple actor, ResultSet r) throws SQLException {
+			this.actor = actor;
+			this.charName = r.getString(Cast.CharName);
+		}
+		private ActorTuple actor;
+		private String charName;
+		
+		public ActorTuple getActor() {
+			return actor;
+		}
+		
+		public String getCharName() {
+			return charName;
+		}
+	};
+	
 	private String movieId;
 	private String homepage;
 	private String overview;
@@ -49,5 +68,8 @@ public class MovieTuple {
 	
 	// NOTE following fields are from other tables
 	public List<GenreTuple> genres;
-	public List<ActorTuple> casts;
+	public List<Cast> casts;
+	public List<Keyword> keywords;
+	public List<LangTuple> langs;
+	public List<CountryTuple> countries;
 }

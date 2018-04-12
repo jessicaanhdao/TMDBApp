@@ -1,5 +1,6 @@
 package movie.database;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,7 +19,7 @@ public class GenreTuple {
 		genreName = r.getString(GenreTuple.GenreNameAttr);
 	}
 	
-	public String getId() {
+	public String getGenreId() {
 		return id;
 	}
 	
