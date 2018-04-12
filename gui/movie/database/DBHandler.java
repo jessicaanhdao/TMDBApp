@@ -31,17 +31,17 @@ public class DBHandler {
 		}
 	}
 	
-	public Map<String, GenreTuple> getAllGenres() {
+	public List<GenreTuple> getAllGenres() {
 		String sql = String.format("SELECT * FROM %s", GenreTuple.TableName);
 		Connection conn = CurrentServer.getConnection();
-		Map<String, GenreTuple> ret = new HashMap<>();
+		List<GenreTuple> ret = new ArrayList<>();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			ResultSet r = prepare.executeQuery();
 			if (r.getFetchSize() > 0) {
 				while(r.next()) {
 					GenreTuple t = new GenreTuple(r);
-					ret.put(t.getGenreId(), t);
+					ret.add(t);
 				}
 			}
 			prepare.close();
@@ -51,17 +51,17 @@ public class DBHandler {
 		return ret;
 	}
 	
-	public List<String> getMovieGenreIds(String movieId) {
-		List<String> ret = new ArrayList<>();
-		String sql = String.format("SELECT %s FROM %s WHERE %s = ?", GenreTuple.GenreIdAttr,
-				GenreTuple.RelationName, MovieTuple.MovieIdAttr);
+	public List<GenreTuple> getGenresByMovie(String movieId) {
+		List<GenreTuple> ret = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+				GenreTuple.RelationName, GenreTuple.TableName, MovieTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			prepare.setString(1, movieId);
 			ResultSet r = prepare.executeQuery();
 			while(r.next()) {
-				ret.add(r.getString(GenreTuple.GenreIdAttr));
+				ret.add(new GenreTuple(r));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,25 +69,60 @@ public class DBHandler {
 		return ret;
 	}
 	
-	public Map<String, MovieTuple.Compact> getMovieInfoByActor(String actorId) {
-		String sql = String.format("SELECT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
-				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, MovieTuple.TableName, 
-				ActorTuple.RelationName, ActorTuple.ActorIdAttr);
+	public List<KeywordTuple> getKeywordsByMovie(String movieId) {
+		List<KeywordTuple> ret = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+				KeywordTuple.RelationName, KeywordTuple.TableName, MovieTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
-		Map<String, MovieTuple.Compact> ret = new HashMap<>();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, movieId);
+			ResultSet r = prepare.executeQuery();
+			while(r.next()) {
+				ret.add(new KeywordTuple(r));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Cast> getCastsByMovie(String movieId) {
+		List<MovieTuple.Cast> ret = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+				ActorTuple.RelationName, ActorTuple.TableName, MovieTuple.MovieIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		PreparedStatement prepare;
+		try {
+			prepare = conn.prepareStatement(sql);
+			prepare.setString(1, movieId);
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Cast(r));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Compact> getMovieInfoByActor(String actorId) {
+		String sql = String.format("SELECT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
+				MovieTuple.TableName, ActorTuple.RelationName, ActorTuple.ActorIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		List<MovieTuple.Compact> ret = new ArrayList<>();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			prepare.setString(1, actorId);
 			ResultSet r = prepare.executeQuery();
 			if (r.getFetchSize() > 0) {
 				while (r.next()) {
-					MovieTuple.Compact c = new MovieTuple.Compact(r);
-					ret.put(c.getId(), c);
+					ret.add(new MovieTuple.Compact(r));
 				}
 			}
 			prepare.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret;

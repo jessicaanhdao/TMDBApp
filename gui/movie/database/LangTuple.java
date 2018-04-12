@@ -3,6 +3,7 @@ package movie.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//TODO not yet added to movie class
 public class LangTuple {
 	public static final String TableName = "SPOKEN_LANGUAGE_NAMES";
 	public static final String RelationName = "SPOKEN_LANGUAGE";

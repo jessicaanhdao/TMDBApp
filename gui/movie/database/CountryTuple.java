@@ -3,6 +3,7 @@ package movie.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// TODO not yet added to movie class
 public class CountryTuple {
 	public static final String TableName = "PRODUCTION_COUNTRY_NAMES";
 	public static final String RelationName = "PRODUCTION_COUNTRY";

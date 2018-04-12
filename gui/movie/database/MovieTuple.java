@@ -39,8 +39,8 @@ public class MovieTuple {
 	public static class Cast {
 		public static final String CharName = "char_name";
 		
-		public Cast(ActorTuple actor, ResultSet r) throws SQLException {
-			this.actor = actor;
+		public Cast(ResultSet r) throws SQLException {
+			this.actor = new ActorTuple(r);
 			this.charName = r.getString(Cast.CharName);
 		}
 		private ActorTuple actor;
@@ -67,9 +67,9 @@ public class MovieTuple {
 	private Date releaseDate;
 	
 	// NOTE following fields are from other tables
-	public List<GenreTuple> genres;
-	public List<Cast> casts;
-	public List<Keyword> keywords;
-	public List<LangTuple> langs;
-	public List<CountryTuple> countries;
+	private List<GenreTuple> genres;
+	private List<Cast> casts;
+	private List<KeywordTuple> keywords;
+	// private List<LangTuple> langs;
+	// private List<CountryTuple> countries;
 }
