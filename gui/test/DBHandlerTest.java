@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import movie.database.MovieTuple;
 class DBHandlerTest {
 
 	@Test
-	void testGenre() {
+	void testGetAllGenres() {
 		DBHandler db = new DBHandler();
 		if (db.isServerAlive()) {
 			System.out.println("connected successfully");
@@ -38,7 +39,7 @@ class DBHandlerTest {
 	}
 	
 	@Test
-	void testMoviesByActors() {
+	void testGetMoviesByActor() {
 		DBHandler db = new DBHandler();
 		// actor id = 65731, name = Sam Worthington
 		System.out.println("Sam Worthington is in following movies");
@@ -51,19 +52,19 @@ class DBHandlerTest {
 	}
 	
 	@Test
-	void testKeyword() {
+	void testGetKeywordsByMovie() {
 		DBHandler db = new DBHandler();
 		String movieId = "19995";
 		System.out.println("movie id=19995 has following keywords");
 		List<KeywordTuple> keywords = db.getKeywordsByMovie(movieId);
 		for (KeywordTuple k: keywords) {
-			System.out.println(k.getId());
+			System.out.println(k.getKeywordId());
 		}
 		assertEquals(keywords.size(), 21);
 	}
 	
 	@Test
-	void testMovieCasts() {
+	void testGetCastsByMovie() {
 		DBHandler db = new DBHandler();
 		String movieId = "19995";
 		System.out.println("movie id=19995 has following casts");
@@ -74,5 +75,22 @@ class DBHandlerTest {
 			System.out.println(msg);
 		}
 		assertEquals(casts.size(), 11);
+	}
+	
+	@Test
+	void testGetMovieByGenre() {
+		DBHandler db = new DBHandler();
+		String genreId = "28"; // action
+		List<MovieTuple.Compact> m = db.getMovieInfoByGenre(genreId);
+		assertEquals(m.size(), 531);
+	}
+	
+	@Test
+	void testGetMoviesByKeywords() {
+		DBHandler db = new DBHandler();
+		String kwStr = "futuristic, romance, space";
+		String[] kwNames = kwStr.split(",");
+		List<MovieTuple.Compact> movies = db.getMovieInfoByKeywordName(kwNames);
+		assertEquals(movies.size(), 24);
 	}
 }

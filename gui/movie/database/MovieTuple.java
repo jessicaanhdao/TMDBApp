@@ -34,6 +34,26 @@ public class MovieTuple {
 		public String getTitle() {
 			return movieTitle;
 		}
+
+		@Override
+		public int hashCode() {
+			return movieId.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this.getClass().equals(obj.getClass())) {
+				MovieTuple.Compact c = (MovieTuple.Compact)obj;
+				if (this.movieId.equals(c.movieId)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		
 	};
 	
 	public static class Cast {

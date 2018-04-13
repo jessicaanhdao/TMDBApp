@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DBHandler {
 	private static Server CurrentServer = null;
@@ -32,7 +34,7 @@ public class DBHandler {
 	}
 	
 	public List<GenreTuple> getAllGenres() {
-		String sql = String.format("SELECT * FROM %s", GenreTuple.TableName);
+		String sql = String.format("SELECT DISTINCT * FROM %s", GenreTuple.TableName);
 		Connection conn = CurrentServer.getConnection();
 		List<GenreTuple> ret = new ArrayList<>();
 		try {
@@ -53,7 +55,7 @@ public class DBHandler {
 	
 	public List<GenreTuple> getGenresByMovie(String movieId) {
 		List<GenreTuple> ret = new ArrayList<>();
-		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+		String sql = String.format("SELECT DISTINCT * FROM %s NATURAL JOIN %s WHERE %s = ?",
 				GenreTuple.RelationName, GenreTuple.TableName, MovieTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
@@ -71,7 +73,7 @@ public class DBHandler {
 	
 	public List<KeywordTuple> getKeywordsByMovie(String movieId) {
 		List<KeywordTuple> ret = new ArrayList<>();
-		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+		String sql = String.format("SELECT DISTINCT * FROM %s NATURAL JOIN %s WHERE %s = ?",
 				KeywordTuple.RelationName, KeywordTuple.TableName, MovieTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
@@ -89,7 +91,7 @@ public class DBHandler {
 	
 	public List<MovieTuple.Cast> getCastsByMovie(String movieId) {
 		List<MovieTuple.Cast> ret = new ArrayList<>();
-		String sql = String.format("SELECT * FROM %s NATURAL JOIN %s WHERE %s = ?",
+		String sql = String.format("SELECT DISTINCT * FROM %s NATURAL JOIN %s WHERE %s = ?",
 				ActorTuple.RelationName, ActorTuple.TableName, MovieTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		PreparedStatement prepare;
@@ -107,7 +109,7 @@ public class DBHandler {
 	}
 	
 	public List<MovieTuple.Compact> getMovieInfoByActor(String actorId) {
-		String sql = String.format("SELECT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
 				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
 				MovieTuple.TableName, ActorTuple.RelationName, ActorTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
@@ -122,6 +124,56 @@ public class DBHandler {
 				}
 			}
 			prepare.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Compact> getMovieInfoByGenre(String genreId) {
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
+				MovieTuple.TableName, GenreTuple.RelationName, GenreTuple.GenreIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, genreId);
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Compact> getMovieInfoByKeywordName(String[] keywordNames) {
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		StringBuilder builder = new StringBuilder();
+		for (int i=0; i<keywordNames.length; ++i) {
+			builder.append(" ? ");
+			if (i < keywordNames.length-1) {
+				builder.append(",");
+			}
+		}
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s NATURAL JOIN %s WHERE %s = ANY( %s )", 
+				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
+				MovieTuple.TableName, KeywordTuple.RelationName, KeywordTuple.TableName,
+				KeywordTuple.KeywordNameAttr,
+				builder.toString());
+		Connection conn = CurrentServer.getConnection();
+		// System.out.println(sql);
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			for (int i=0; i<keywordNames.length; ++i) {
+				prepare.setString(i+1, keywordNames[i].trim());
+			}
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
