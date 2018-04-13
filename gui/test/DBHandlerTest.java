@@ -92,5 +92,10 @@ class DBHandlerTest {
 		String[] kwNames = kwStr.split(",");
 		List<MovieTuple.Compact> movies = db.getMovieInfoByKeywordName(kwNames);
 		assertEquals(movies.size(), 24);
+		
+		String kwStr2 = "futuristic";
+		String[] kwNames2 = kwStr2.split(",");
+		List<MovieTuple.Compact> movies2 = db.getMovieInfoByKeywordName(kwNames2);
+		assertEquals(movies2.size(), 7);
 	}
 }
