@@ -98,4 +98,14 @@ class DBHandlerTest {
 		List<MovieTuple.Compact> movies2 = db.getMovieInfoByKeywordName(kwNames2);
 		assertEquals(movies2.size(), 7);
 	}
+	
+	@Test
+	void testMovieTuple() {
+		String movieId = "19995";
+		DBHandler db = new DBHandler();
+		MovieTuple movie = db.getMovieById(movieId);
+		assertEquals(movie.getTitle(), "Avatar");
+		assertEquals(movie.getHomepage(), "http://www.avatarmovie.com/");
+		assertEquals(movie.getRuntime(), 162);
+	}
 }

@@ -11,7 +11,7 @@ public class MovieTuple {
 	public static final String MovieIdAttr = "movie_id";
 	public static final String HomepageAttr = "homepage";
 	public static final String OverviewAttr = "overview";
-	public static final String PopularityAttr = "popularuty";
+	public static final String PopularityAttr = "popularity";
 	public static final String RuntimeAttr = "runtime";
 	public static final String TitleAttr = "title";
 	public static final String VoteAvgAttr = "vote_average";
@@ -35,7 +35,7 @@ public class MovieTuple {
 			return movieTitle;
 		}
 
-		@Override
+		/* @Override
 		public int hashCode() {
 			return movieId.hashCode();
 		}
@@ -52,7 +52,7 @@ public class MovieTuple {
 			} else {
 				return false;
 			}
-		}
+		} */
 		
 	};
 	
@@ -78,7 +78,6 @@ public class MovieTuple {
 	private String movieId;
 	private String homepage;
 	private String overview;
-	private String movieTitle;
 	private float popularity;
 	private int runtime;
 	private String title;
@@ -86,10 +85,83 @@ public class MovieTuple {
 	private int voteCnt;
 	private Date releaseDate;
 	
+	
+	public String getMovieId() {
+		return this.movieId;
+	}
+	
+	public String getHomepage() {
+		return this.homepage;
+	}
+	
+	public String getOverview() {
+		return this.overview;
+	}
+	
+	public float getPopularity() {
+		return this.popularity;
+	}
+	
+	public int getRuntime() {
+		return this.runtime;
+	}
+	
+	public String getTitle() {
+		return this.title;
+	}
+	
+	public float getVoteAverage() {
+		return this.voteAvg;
+	}
+	
+	public int getVoteCount() {
+		return this.voteCnt;
+	}
+	
+	public Date getReleaseDate() {
+		return this.releaseDate;
+	}
+		
+	public MovieTuple(ResultSet r) throws SQLException {
+		this.movieId = r.getString(MovieIdAttr);
+		this.homepage = r.getString(HomepageAttr);
+		this.overview = r.getString(OverviewAttr);
+		this.popularity = r.getFloat(PopularityAttr);
+		this.runtime = r.getInt(RuntimeAttr);
+		this.title = r.getString(TitleAttr);
+		this.voteAvg = r.getFloat(VoteAvgAttr);
+		this.voteCnt = r.getInt(VoteCntAttr);
+		this.releaseDate = r.getDate(RelaseDateAttr);
+	}
+
 	// NOTE following fields are from other tables
 	private List<GenreTuple> genres;
 	private List<Cast> casts;
 	private List<KeywordTuple> keywords;
 	// private List<LangTuple> langs;
 	// private List<CountryTuple> countries;
+	
+	public List<GenreTuple> getGenres() {
+		return genres;
+	}
+
+	protected void setGenres(List<GenreTuple> genres) {
+		this.genres = genres;
+	}
+
+	public List<Cast> getCasts() {
+		return casts;
+	}
+
+	protected void setCasts(List<Cast> casts) {
+		this.casts = casts;
+	}
+
+	public List<KeywordTuple> getKeywords() {
+		return keywords;
+	}
+
+	protected void setKeywords(List<KeywordTuple> keywords) {
+		this.keywords = keywords;
+	}
 }

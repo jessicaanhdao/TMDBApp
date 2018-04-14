@@ -180,6 +180,27 @@ public class DBHandler {
 		return ret;
 	}
 	
+	public MovieTuple getMovieById(String movieId) {
+		MovieTuple movie = null;
+		String sql = String.format("SELECT * FROM %s WHERE %s = ?", 
+				MovieTuple.TableName, MovieTuple.MovieIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, movieId);
+			ResultSet r = prepare.executeQuery();
+			if (r.next()) {
+				movie = new MovieTuple(r);
+				movie.setCasts(this.getCastsByMovie(movieId));
+				movie.setGenres(this.getGenresByMovie(movieId));
+				movie.setKeywords(this.getKeywordsByMovie(movieId));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return movie;
+	}
+	
 	public void forceReconnect() {
 		if (CurrentServer != null) {
 			CurrentServer.shutdown();
