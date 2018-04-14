@@ -201,6 +201,28 @@ public class DBHandler {
 		return movie;
 	}
 	
+	public List<MovieTuple.Compact> searchMovie(String partialTitle) {
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		StringBuilder builder = new StringBuilder();
+		builder.append("%").append(partialTitle).append("%");
+		String wildCardStr = builder.toString();
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
+				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, MovieTuple.TableName,
+				MovieTuple.TitleAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, wildCardStr);
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 	public void forceReconnect() {
 		if (CurrentServer != null) {
 			CurrentServer.shutdown();

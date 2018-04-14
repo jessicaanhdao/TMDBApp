@@ -108,4 +108,17 @@ class DBHandlerTest {
 		assertEquals(movie.getHomepage(), "http://www.avatarmovie.com/");
 		assertEquals(movie.getRuntime(), 162);
 	}
+	
+	@Test
+	void testSearchMovie() {
+		String partialTitle = "pira";
+		DBHandler db = new DBHandler();
+		List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
+		assertEquals(movies.size(), 7);
+		String partialTitleUpper = partialTitle.toUpperCase();
+		for (MovieTuple.Compact c: movies) {
+			String titleUpper = c.getTitle().toUpperCase();
+			assertTrue(titleUpper.contains(partialTitleUpper));
+		}
+	}
 }
