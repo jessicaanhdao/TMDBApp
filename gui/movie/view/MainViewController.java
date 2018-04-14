@@ -9,6 +9,14 @@ public class MainViewController {
 
 	private Main main;
 	@FXML
+	private GridPane movieGrid;
+	
+	@Override
+	public void initialize() {
+		
+	}
+	
+	@FXML
 	private void goToMovieList() throws IOException {
 		 main.showMovieListScene();
 	}
