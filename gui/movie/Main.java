@@ -31,7 +31,7 @@ public class Main extends Application {
 		rootLayout = loader.load();
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene); //create a window that has the scene
-        primaryStage.setFullScreen(false);
+        primaryStage.setFullScreen(true);
 		primaryStage.show(); 
 	}
 	public void showMainViewScene() throws IOException {
