@@ -18,15 +18,14 @@ class DBHandlerTest {
 	@Test
 	void testGetAllGenres() {
 		DBHandler db = new DBHandler();
+		int genreNum = 0;
 		if (db.isServerAlive()) {
 			System.out.println("connected successfully");
 			System.out.println("All genres:");
 			List<GenreTuple> genres = db.getAllGenres();
-			for (GenreTuple g: genres) {
-				System.out.println(g.getGenreName());
-			}
-			assertEquals(genres.size(), 18);
+			genreNum = genres.size();
 		}
+		assertEquals(genreNum, 18);
 		// movie id = 19995
 		String movieId = "19995";
 		System.out.println("movie id = 19995 has following genre ids");
