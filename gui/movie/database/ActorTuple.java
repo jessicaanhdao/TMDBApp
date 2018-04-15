@@ -25,4 +25,10 @@ public class ActorTuple {
 	public String getActorName() {
 		return actorName;
 	}
+
+	@Override
+	public String toString() {
+		// return "ActorTuple [actorName=" + actorName + "]";
+		return actorName;
+	}
 }

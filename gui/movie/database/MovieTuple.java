@@ -35,6 +35,11 @@ public class MovieTuple {
 			return movieTitle;
 		}
 
+		@Override
+		public String toString() {
+			// return "Compact [movieTitle=" + movieTitle + "]";
+			return movieTitle;
+		}
 		/* @Override
 		public int hashCode() {
 			return movieId.hashCode();
@@ -72,6 +77,12 @@ public class MovieTuple {
 		
 		public String getCharName() {
 			return charName;
+		}
+
+		@Override
+		public String toString() {
+			// return "Cast [actor=" + actor + ", charName=" + charName + "]";
+			return String.format("%s act as %s", actor, charName);
 		}
 	};
 	
