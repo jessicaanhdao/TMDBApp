@@ -62,10 +62,34 @@ public class MainViewController {
    String partialTitle = "pira";
 	DBHandler db = new DBHandler();
 	List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
-   private void setMovieList(){
+	
+	private void setMovieList(){
+		int i=0,j=0;
 	   for (MovieTuple.Compact c: movies) {
-			String titleUpper = c.getTitle().toUpperCase();
-			allMovieNames.add(titleUpper);
+		   	String id = c.getId();
+			String titleUpper = c.getTitle().toUpperCase();	
+		//	String des = c.getClass().;
+		//	allMovieNames.add(titleUpper);
+			
+			Label titleLbl = new Label(titleUpper);
+			Label idLbl = new Label("ID:" +id);
+	        	
+        	Label desLbl = new Label ("Description:");
+        	
+        	JFXListView<Label> list = new JFXListView<>();
+        	list.getItems().add(titleLbl);
+        	list.getItems().add(idLbl);
+        	list.getItems().add(desLbl);
+        	movieGrid.add(list, i, j);
+        	i++;
+        //	j++;
+        	if (i==5 ) {
+        		i=0;
+        		j++;
+        	}
+        	if (j ==5) {
+        		j=0;
+        	}
 	   }
        movieList.setItems(FXCollections.observableArrayList(allMovieNames));
    }
