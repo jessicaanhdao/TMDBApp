@@ -270,6 +270,40 @@ public class DBHandler {
 		}
 	}
 	
+	public int insertActorReview(ActorReviewTuple review) {
+		String sql = String.format("INSERT INTO %s ( %s , %s , %s , %s ) VALUES ( ? , ? , ? , ? )", 
+				ActorReviewTuple.TableName, 
+				ActorReviewTuple.StudentIdAttr, ActorReviewTuple.ActorIdAttr, ActorReviewTuple.ReviewAttr, 
+				ActorReviewTuple.RatingAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, review.getStudentId());
+			prepare.setString(2, review.getActorId());
+			prepare.setString(3, review.getReview());
+			prepare.setInt(4, review.getRating());
+			return prepare.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			return -1;
+		}
+	}
+	
+	public int deleteActorReview(ActorReviewTuple review) {
+		String sql = String.format("DELETE FROM %s WHERE %s = ? AND %s = ?", 
+				ActorReviewTuple.TableName, ActorReviewTuple.StudentIdAttr, ActorReviewTuple.ActorIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, review.getStudentId());
+			prepare.setString(2, review.getActorId());
+			return prepare.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			return -1;
+		}
+	}
+	
 	public void forceReconnect() {
 		if (CurrentServer != null) {
 			CurrentServer.shutdown();

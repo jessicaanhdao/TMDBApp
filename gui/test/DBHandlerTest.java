@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import movie.database.ActorReviewTuple;
 import movie.database.ActorTuple;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
@@ -133,7 +134,7 @@ class DBHandlerTest {
 	}
 	
 	@Test
-	void testInsertMovieReview() {
+	void testMovieReview() {
 		// valid case
 		String studentId = "5566";
 		String movieId = "19995"; // avatar
@@ -149,6 +150,26 @@ class DBHandlerTest {
 		// invalid case
 		MovieReviewTuple invalidReview = new MovieReviewTuple(studentId, "-1", review, rating);
 		ret = db.insertMovieReview(invalidReview);
+		assertEquals(ret, -1);
+	}
+	
+	@Test
+	void testActorReview() {
+		// valid case
+		String studentId = "5566";
+		String actorId = "1817"; // Linda Cardellini
+		String review = "Good";
+		int rating = 5;
+		ActorReviewTuple actorReview = new ActorReviewTuple(studentId, actorId, review, rating);
+		DBHandler db = new DBHandler();
+		int ret = db.insertActorReview(actorReview);
+		assertEquals(ret, 1);
+		ret = db.deleteActorReview(actorReview);
+		assertEquals(ret, 1);
+		
+		// invalid case
+		ActorReviewTuple invalidReview = new ActorReviewTuple(studentId, "-1", review, rating);
+		ret = db.insertActorReview(invalidReview);
 		assertEquals(ret, -1);
 	}
 }
