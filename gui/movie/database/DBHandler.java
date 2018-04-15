@@ -223,6 +223,24 @@ public class DBHandler {
 		return ret;
 	}
 	
+	public ActorTuple getActorByName(String actorName) {
+		ActorTuple actor = null;
+		String sql = String.format("SELECT * FROM %s WHERE %s = ?", 
+				ActorTuple.TableName, ActorTuple.ActorNameAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, actorName);
+			ResultSet r = prepare.executeQuery();
+			if (r.next()) {
+				actor = new ActorTuple(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return actor;
+	}
+	
 	public void forceReconnect() {
 		if (CurrentServer != null) {
 			CurrentServer.shutdown();

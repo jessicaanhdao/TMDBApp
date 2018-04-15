@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import movie.database.ActorTuple;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.KeywordTuple;
@@ -119,5 +120,14 @@ class DBHandlerTest {
 			String titleUpper = c.getTitle().toUpperCase();
 			assertTrue(titleUpper.contains(partialTitleUpper));
 		}
+	}
+	
+	@Test
+	void testGetActorByName() {
+		String actorName = "Sam Worthington";
+		DBHandler db = new DBHandler();
+		ActorTuple actor = db.getActorByName(actorName);
+		assertEquals(actor.getActorName(), actorName);
+		assertEquals(actor.getActorId(), "65731");
 	}
 }
