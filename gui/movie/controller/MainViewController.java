@@ -55,15 +55,19 @@ public class MainViewController {
 	}
 	
    @FXML
-   private ListView<MovieTuple.Compact> movieList;
+   //private ListView<MovieTuple.Compact> movieList;
    
+   private ListView<String> movieList;
    
    String partialTitle = "pira";
 	DBHandler db = new DBHandler();
 	List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
    private void setMovieList(){
-       //ObservableList<Professional> profObjList = ;
-       movieList.setItems(FXCollections.observableArrayList(movies));
+	   for (MovieTuple.Compact c: movies) {
+			String titleUpper = c.getTitle().toUpperCase();
+			allMovieNames.add(titleUpper);
+	   }
+       movieList.setItems(FXCollections.observableArrayList(allMovieNames));
    }
    
    
