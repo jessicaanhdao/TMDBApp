@@ -270,6 +270,24 @@ public class DBHandler {
 		}
 	}
 	
+	public List<MovieReviewTuple> getMovieReviews(String movieId) {
+		List<MovieReviewTuple> ret = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %s WHERE %s = ?", 
+				MovieReviewTuple.TableName, MovieReviewTuple.MovieIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, movieId);
+			ResultSet r = prepare.executeQuery();
+			while(r.next()) {
+				ret.add(new MovieReviewTuple(r));
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
+	}
+	
 	public int insertActorReview(ActorReviewTuple review) {
 		String sql = String.format("INSERT INTO %s ( %s , %s , %s , %s ) VALUES ( ? , ? , ? , ? )", 
 				ActorReviewTuple.TableName, 
@@ -302,6 +320,24 @@ public class DBHandler {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 			return -1;
 		}
+	}
+	
+	public List<ActorReviewTuple> getActorReviews(String actorId) {
+		List<ActorReviewTuple> ret = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %s WHERE %s = ?", 
+				ActorReviewTuple.TableName, ActorReviewTuple.ActorIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, actorId);
+			ResultSet r = prepare.executeQuery();
+			while(r.next()) {
+				ret.add(new ActorReviewTuple(r));
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
 	}
 	
 	public void forceReconnect() {

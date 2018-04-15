@@ -1,5 +1,8 @@
 package movie.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class MovieReviewTuple {
 	public static final String TableName = "USER_MOVIE_REVIEWS";
 	
@@ -18,6 +21,13 @@ public class MovieReviewTuple {
 		this.setMovieId(movieId);
 		this.setReview(review);
 		this.setRating(rating);
+	}
+
+	public MovieReviewTuple(ResultSet r) throws SQLException {
+		this.studentId = r.getString(StudentIdAttr);
+		this.movieId = r.getString(MovieIdAttr);
+		this.rating = r.getInt(RatingAttr);
+		this.review = r.getString(ReviewAttr);
 	}
 
 	public String getStudentId() {
