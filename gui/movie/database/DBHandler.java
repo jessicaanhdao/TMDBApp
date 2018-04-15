@@ -109,9 +109,8 @@ public class DBHandler {
 	}
 	
 	public List<MovieTuple.Compact> getMovieInfoByActor(String actorId) {
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
-				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
-				MovieTuple.TableName, ActorTuple.RelationName, ActorTuple.ActorIdAttr);
+		String sql = String.format("SELECT DISTINCT %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, ActorTuple.RelationName, ActorTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		List<MovieTuple.Compact> ret = new ArrayList<>();
 		try {
@@ -132,9 +131,8 @@ public class DBHandler {
 	
 	public List<MovieTuple.Compact> getMovieInfoByGenre(String genreId) {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
-				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
-				MovieTuple.TableName, GenreTuple.RelationName, GenreTuple.GenreIdAttr);
+		String sql = String.format("SELECT DISTINCT %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, GenreTuple.RelationName, GenreTuple.GenreIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
@@ -158,9 +156,8 @@ public class DBHandler {
 				builder.append(",");
 			}
 		}
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s NATURAL JOIN %s NATURAL JOIN %s WHERE %s = ANY( %s )", 
-				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, 
-				MovieTuple.TableName, KeywordTuple.RelationName, KeywordTuple.TableName,
+		String sql = String.format("SELECT DISTINCT %s FROM %s NATURAL JOIN %s NATURAL JOIN %s WHERE %s = ANY( %s )", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, KeywordTuple.RelationName, KeywordTuple.TableName,
 				KeywordTuple.KeywordNameAttr,
 				builder.toString());
 		Connection conn = CurrentServer.getConnection();
@@ -206,9 +203,8 @@ public class DBHandler {
 		StringBuilder builder = new StringBuilder();
 		builder.append("%").append(partialTitle).append("%");
 		String wildCardStr = builder.toString();
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
-				MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, MovieTuple.TableName,
-				MovieTuple.TitleAttr);
+		String sql = String.format("SELECT DISTINCT %s FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, MovieTuple.TitleAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);

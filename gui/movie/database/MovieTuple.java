@@ -21,10 +21,21 @@ public class MovieTuple {
 	public static class Compact {
 		private String movieId;
 		private String movieTitle;
+		private float voteAvg;
+		private float popularity;
+		
+		protected static String GetProjectAttr() {
+			String proj = String.format(" %s , %s , %s , %s ", 
+					MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, MovieTuple.PopularityAttr,
+					MovieTuple.VoteAvgAttr);
+			return proj;
+		}
 		
 		public Compact(ResultSet r) throws SQLException {
 			movieId = r.getString(MovieTuple.MovieIdAttr);
 			movieTitle = r.getString(MovieTuple.TitleAttr);
+			popularity = r.getFloat(PopularityAttr);
+			voteAvg = r.getFloat(VoteAvgAttr);
 		}
 		
 		public String getId() {
@@ -33,6 +44,14 @@ public class MovieTuple {
 		
 		public String getTitle() {
 			return movieTitle;
+		}
+		
+		public float getVoteAverage() {
+			return this.voteAvg;
+		}
+		
+		public float getPopularity() {
+			return this.popularity;
 		}
 
 		@Override
