@@ -12,6 +12,7 @@ import movie.database.ActorTuple;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.KeywordTuple;
+import movie.database.MovieReviewTuple;
 import movie.database.MovieTuple;
 
 class DBHandlerTest {
@@ -129,5 +130,25 @@ class DBHandlerTest {
 		ActorTuple actor = db.getActorByName(actorName);
 		assertEquals(actor.getActorName(), actorName);
 		assertEquals(actor.getActorId(), "65731");
+	}
+	
+	@Test
+	void testInsertMovieReview() {
+		// valid case
+		String studentId = "5566";
+		String movieId = "19995"; // avatar
+		String review = "It's an art!!!";
+		int rating = 5;
+		MovieReviewTuple movieReview = new MovieReviewTuple(studentId, movieId, review, rating);
+		DBHandler db = new DBHandler();
+		int ret = db.insertMovieReview(movieReview);
+		assertEquals(ret, 1);
+		ret = db.deleteMovieReview(movieReview);
+		assertEquals(ret, 1);
+		
+		// invalid case
+		MovieReviewTuple invalidReview = new MovieReviewTuple(studentId, "-1", review, rating);
+		ret = db.insertMovieReview(invalidReview);
+		assertEquals(ret, -1);
 	}
 }
