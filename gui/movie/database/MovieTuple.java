@@ -23,11 +23,13 @@ public class MovieTuple {
 		private String movieTitle;
 		private float voteAvg;
 		private float popularity;
+		// TODO
+		private Date releaseDate;
 		
 		protected static String GetProjectAttr() {
-			String proj = String.format(" %s , %s , %s , %s ", 
+			String proj = String.format(" %s , %s , %s , %s , %s ", 
 					MovieTuple.MovieIdAttr, MovieTuple.TitleAttr, MovieTuple.PopularityAttr,
-					MovieTuple.VoteAvgAttr);
+					MovieTuple.VoteAvgAttr, MovieTuple.RelaseDateAttr);
 			return proj;
 		}
 		
@@ -36,6 +38,7 @@ public class MovieTuple {
 			movieTitle = r.getString(MovieTuple.TitleAttr);
 			popularity = r.getFloat(PopularityAttr);
 			voteAvg = r.getFloat(VoteAvgAttr);
+			releaseDate = r.getDate(RelaseDateAttr);
 		}
 		
 		public String getId() {
@@ -52,6 +55,10 @@ public class MovieTuple {
 		
 		public float getPopularity() {
 			return this.popularity;
+		}
+		
+		public Date getReleaseDate() {
+			return this.releaseDate;
 		}
 
 		@Override
