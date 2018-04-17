@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -174,6 +175,35 @@ public class DBHandler {
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Compact> fetchMovieInfos(int num) {
+		List<MovieTuple.Compact> allInfo = this.fetchMovieInfos();
+		if (allInfo.size() <= num) return allInfo;
+		List<MovieTuple.Compact> selected = new ArrayList<>();
+		for (int i=0; i<num; ++i) {
+			selected.add(allInfo.get(i));
+		}
+		return selected;
+	}
+	
+	public List<MovieTuple.Compact> fetchMovieInfos() {
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		String sql = String.format("SELECT %s , %s FROM %s ORDER BY %s DESC", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.PopularityAttr,
+				MovieTuple.TableName, MovieTuple.PopularityAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			ResultSet r = prepare.executeQuery();
+			while(r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		
 		return ret;
 	}
 	

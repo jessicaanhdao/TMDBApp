@@ -194,4 +194,19 @@ class DBHandlerTest {
 		ret = db.insertActorReview(invalidReview);
 		assertEquals(ret, -1);
 	}
+	
+	@Test
+	void testFetchMovies() {
+		// System.out.println("testFetchMovies");
+		DBHandler db = new DBHandler();
+		List<MovieTuple.Compact> movies = db.fetchMovieInfos(20);
+		/* for (MovieTuple.Compact c: movies) {
+			System.out.println(c.getPopularity());
+		} */
+		for (int i=0; i<movies.size()-1; ++i) {
+			float m1 = movies.get(i).getPopularity();
+			float m2 = movies.get(i+1).getPopularity();
+			assertTrue(m1 >= m2);
+		}
+	}
 }
