@@ -1,10 +1,14 @@
 package movie.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -190,7 +194,7 @@ public class DBHandler {
 	
 	public List<MovieTuple.Compact> fetchMovieInfos() {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
-		String sql = String.format("SELECT %s , %s FROM %s ORDER BY %s DESC", 
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s ORDER BY %s DESC", 
 				MovieTuple.Compact.GetProjectAttr(), MovieTuple.PopularityAttr,
 				MovieTuple.TableName, MovieTuple.PopularityAttr);
 		Connection conn = CurrentServer.getConnection();
@@ -245,6 +249,30 @@ public class DBHandler {
 			}
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple.Compact> searchMovieByDate(int year, int month, int day) {
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month-1, day);
+		try {
+			Date d = new Date(cal.getTime().getTime());
+			String sql = String.format("SELECT DISTINCT %s FROM %s WHERE %s = to_date( ? , ? )", 
+					MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, MovieTuple.RelaseDateAttr);
+			Connection conn = CurrentServer.getConnection();
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, format.format(d));
+			prepare.setString(2, "RRRR-MM-DD");
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
+		} catch (Exception e) {
+			// e.printStackTrace();
+			System.err.println(e.getClass().getName());
 		}
 		return ret;
 	}

@@ -209,4 +209,11 @@ class DBHandlerTest {
 			assertTrue(m1 >= m2);
 		}
 	}
+	
+	@Test
+	void testSearchMovieByDate() {
+		DBHandler db = new DBHandler();
+		List<MovieTuple.Compact> movies = db.searchMovieByDate(2007, 5, 19);
+		assertEquals(movies.size(), 1);
+	}
 }
