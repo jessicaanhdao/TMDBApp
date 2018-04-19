@@ -42,7 +42,7 @@ public class Main extends Application {
 		rootLayout.setCenter(mainViewScene);
 	}
 	
-	public static void showMoviesByGenre(String GenreName) throws IOException {
+	public static void showMoviesByGenre(String GenreId) throws IOException {
 //		 System.out.println("name: "+GenreName);
 		FXMLLoader loader = new FXMLLoader();
 	
@@ -51,7 +51,7 @@ public class Main extends Application {
 			
 		AnchorPane mainViewScene = loader.load();
 		MainViewController controller = loader.<MainViewController>getController();			
-		controller.getMoviesByGenre(GenreName);
+		controller.getMoviesByGenre(GenreId);
 		///didnt pass this
 		
 			rootLayout.setCenter(mainViewScene);

@@ -32,6 +32,7 @@ public class RootLayoutController {
 	private void setGenres(){
 		for (GenreTuple g: allGenres) {
 			MenuItem item =  new MenuItem(g.getGenreName());
+			item.setUserData(g.getGenreId());
 			// System.out.println("in setgenre");
 			item.setOnAction(new EventHandler<ActionEvent>() {				
 			
@@ -40,7 +41,8 @@ public class RootLayoutController {
 			        try {
 			        	MenuItem item = (MenuItem) t.getSource();
 			        	System.out.println("You clicked on: "+item.getText());
-						Main.showMoviesByGenre(item.getText());
+						String id = (String)item.getUserData();
+			        	Main.showMoviesByGenre(id);
 						System.out.println("You clicked on: "+item.getText());
 
 					} catch (IOException e) {

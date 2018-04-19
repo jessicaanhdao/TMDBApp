@@ -92,12 +92,13 @@ public class MainViewController {
   //     movieList.setItems(FXCollections.observableArrayList(allMovieNames));
    }
 	
-	public void getMoviesByGenre(String GenreName) throws IOException {
+	public void getMoviesByGenre(String GenreId) throws IOException {
 		DBHandler db = new DBHandler();
 		
 //		List<MovieTuple.Compact> genredMovies = db.getMoviesByGenres(GenreName); <-- function isnt working
-		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre("28");
-		 System.out.println("in mainctrlr");
+		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre(GenreId);
+		 String msg = String.format("in mainctrlr. clicked genreid=%s movie num=%d", GenreId, genredMovies.size());
+		 System.out.println(msg);
 		 setMovieList(genredMovies);
 	}
 	
