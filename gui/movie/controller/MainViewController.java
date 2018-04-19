@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import movie.Main;
 import movie.database.DBHandler;
 import movie.database.MovieTuple;
-import movie.model.Directory;
 
 public class MainViewController {
 
@@ -25,8 +24,8 @@ public class MainViewController {
 	@FXML
 	private GridPane movieGrid;
 	
-	Directory dir = Directory.getInstance();
-    List<MovieTuple.Compact> allTheMovies= dir.getMovies();
+//	Directory dir = Directory.getInstance();
+//    List<MovieTuple.Compact> allTheMovies= dir.getMovies();
     List<String> allMovieNames  = new ArrayList<String>();
 		
 	
@@ -34,38 +33,38 @@ public class MainViewController {
 	@FXML
 	public void initialize() {
 	//	getGrid();
-		setMovieList();
+		setMovieList(movies);
 	}
-   public void getGrid() {
-	//	GridPane gridPane = new GridPane();
-		for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-            	Label lbl1 = new Label("movie" +(j+i));
-            	
-            	Label lbl2 = new Label ("Movie description:");
-            	
-            	JFXListView<Label> list = new JFXListView<>();
-            	list.getItems().add(lbl1);
-            	list.getItems().add(lbl2);
-            	movieGrid.add(list, i, j);
-            //	movieGrid.getChildren().add(lbl);
-            	//gridPane;
-            }
-		}
-	}
+//   public void getGrid() {
+//		for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//            	Label lbl1 = new Label("movie" +(j+i));
+//            	
+//            	Label lbl2 = new Label ("Movie description:");
+//            	
+//            	JFXListView<Label> list = new JFXListView<>();
+//            	list.getItems().add(lbl1);
+//            	list.getItems().add(lbl2);
+//            	movieGrid.add(list, i, j);
+//            }
+//		}
+//	}
 	
    @FXML
    //private ListView<MovieTuple.Compact> movieList;
    
-   private ListView<String> movieList;
+   //private ListView<String> movieList;
    
    String partialTitle = "pira";
 	DBHandler db = new DBHandler();
 	List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
 	
-	private void setMovieList(){
+	private void setMovieList(List<MovieTuple.Compact> movieList){
+		if (movieList.size() == 0 ){
+		//	movieGrid.clear
+		}
 		int i=0,j=0;
-	   for (MovieTuple.Compact c: movies) {
+	   for (MovieTuple.Compact c: movieList) {
 		   	String id = c.getId();
 			String titleUpper = c.getTitle().toUpperCase();	
 		//	String des = c.getClass().;
@@ -82,7 +81,6 @@ public class MainViewController {
         	list.getItems().add(desLbl);
         	movieGrid.add(list, i, j);
         	i++;
-        //	j++;
         	if (i==5 ) {
         		i=0;
         		j++;
@@ -91,14 +89,22 @@ public class MainViewController {
         		j=0;
         	}
 	   }
-       movieList.setItems(FXCollections.observableArrayList(allMovieNames));
+  //     movieList.setItems(FXCollections.observableArrayList(allMovieNames));
    }
-   
-   
-   
-   
+	
+	public void getMoviesByGenre(String GenreName) throws IOException {
+		DBHandler db = new DBHandler();
+		
+//		List<MovieTuple.Compact> genredMovies = db.getMoviesByGenres(GenreName); <-- function isnt working
+		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre("28");
+		 System.out.println("in mainctrlr");
+		 setMovieList(genredMovies);
+	}
+	
 	@FXML
 	private void goToMovieList() throws IOException {
 		 main.showMovieListScene();
 	}
+	
+	
 }

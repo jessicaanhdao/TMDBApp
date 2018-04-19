@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -22,7 +23,7 @@
                                     <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
                                     <Text layoutX="12.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" />
                                     <Text layoutX="12.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Release Year" />
-                                    <Text layoutX="12.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cast" />
+                                    <Text layoutX="12.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cast" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -43,6 +44,9 @@
                   <Font size="34.0" />
                </font></Text>
          </top>
+         <right>
+            <JFXListView prefHeight="203.0" prefWidth="81.0" BorderPane.alignment="CENTER" />
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>

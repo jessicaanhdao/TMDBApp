@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import movie.controller.MainViewController;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.MovieTuple;
@@ -40,12 +41,29 @@ public class Main extends Application {
 		AnchorPane mainViewScene = loader.load();
 		rootLayout.setCenter(mainViewScene);
 	}
+	
+	public static void showMoviesByGenre(String GenreName) throws IOException {
+//		 System.out.println("name: "+GenreName);
+		FXMLLoader loader = new FXMLLoader();
+	
+		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+	
+			
+		AnchorPane mainViewScene = loader.load();
+		MainViewController controller = loader.<MainViewController>getController();			
+		controller.getMoviesByGenre(GenreName);
+		///didnt pass this
+		
+			rootLayout.setCenter(mainViewScene);
+	}
+	
 	public static void showMovieListScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/MovieList.fxml"));
 		AnchorPane movieListScene = loader.load();
 		rootLayout.setCenter(movieListScene);
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);

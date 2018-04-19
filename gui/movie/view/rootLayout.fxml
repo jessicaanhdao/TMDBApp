@@ -8,20 +8,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<BorderPane prefHeight="52.0" prefWidth="403.0" stylesheets="@../../style/root.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="52.0" prefWidth="403.0" stylesheets="@../../style/root.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movie.controller.RootLayoutController">
    <top>
       <SplitPane dividerPositions="0.6829268292682927" orientation="VERTICAL" prefHeight="125.0" prefWidth="403.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <MenuBar layoutY="2.0" prefHeight="81.0" prefWidth="401.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <MenuBar fx:id="menu" layoutY="2.0" prefHeight="81.0" prefWidth="401.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Genres">
-                        <items>
-                              <MenuItem mnemonicParsing="false" text="Horror" />
-                          <MenuItem mnemonicParsing="false" text="Romance" />
-                        </items>
-                      </Menu>
+                      <Menu fx:id="genreMenu" mnemonicParsing="false" text="Genres" />
                       <Menu mnemonicParsing="false" text="Movies">
                         <items>
                           <MenuItem mnemonicParsing="false" text="Popular" />

@@ -57,6 +57,36 @@ public class DBHandler {
 		}
 		return ret;
 	}
+	//TODO
+	public List<ActorTuple> getAllActors(){
+		List<ActorTuple> ret = new ArrayList<>();
+		return ret;
+	}
+	
+	//TODO is this correct????
+	public List<MovieTuple.Compact> getMoviesByGenres(String genreName) {
+		 System.out.println("name: "+genreName);
+		List<MovieTuple.Compact> ret = new ArrayList<>();
+		String sql = String.format("SELECT DISTINCT %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, GenreTuple.RelationName, GenreTuple.GenreNameAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, genreName);
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new MovieTuple.Compact(r));
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
+	}
+	
+	public List<MovieTuple> getMoviesByPopularity(){
+		List<MovieTuple> ret = new ArrayList<>();
+		return ret;
+	}
 	
 	public List<GenreTuple> getGenresByMovie(String movieId) {
 		List<GenreTuple> ret = new ArrayList<>();
