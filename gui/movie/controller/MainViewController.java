@@ -8,10 +8,14 @@ import com.jfoenix.controls.JFXListView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import movie.Main;
@@ -20,7 +24,6 @@ import movie.database.MovieTuple;
 
 public class MainViewController {
 
-	private Main main;
 	@FXML
 	private GridPane movieGrid;
 	
@@ -64,22 +67,33 @@ public class MainViewController {
 		//	movieGrid.clear
 		}
 		int i=0,j=0;
-	   for (MovieTuple.Compact c: movieList) {
-		   	String id = c.getId();
-			String titleUpper = c.getTitle().toUpperCase();	
-		//	String des = c.getClass().;
-		//	allMovieNames.add(titleUpper);
-			
+	   for (MovieTuple.Compact mv: movieList) {
+		   	String id = mv.getId();
+			String titleUpper = mv.getTitle().toUpperCase();		
 			Label titleLbl = new Label(titleUpper);
 			Label idLbl = new Label("ID:" +id);
 	        	
         	Label desLbl = new Label ("Description:");
         	
-        	JFXListView<Label> list = new JFXListView<>();
+        	ListView<Label> list = new ListView<>();
         	list.getItems().add(titleLbl);
         	list.getItems().add(idLbl);
         	list.getItems().add(desLbl);
+        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					try {
+						Main.showMovieInfoScene(mv);
+						//pass in the movie object
+						//show movie list, past movieID 
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}					    
+			});
         	movieGrid.add(list, i, j);
+        	
         	i++;
         	if (i==5 ) {
         		i=0;
@@ -102,10 +116,10 @@ public class MainViewController {
 		 setMovieList(genredMovies);
 	}
 	
-	@FXML
-	private void goToMovieList() throws IOException {
-		 main.showMovieListScene();
-	}
-	
+//	@FXML
+//	private void goToMovieList() throws IOException {
+//		 Main.showMovieListScene();
+//	}
+//	
 	
 }

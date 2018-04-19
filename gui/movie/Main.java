@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import movie.controller.MainViewController;
+import movie.controller.MovieInfoController;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.MovieTuple;
@@ -35,7 +36,7 @@ public class Main extends Application {
         primaryStage.setFullScreen(true);
 		primaryStage.show(); 
 	}
-	public void showMainViewScene() throws IOException {
+	public static void showMainViewScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
 		AnchorPane mainViewScene = loader.load();
@@ -43,25 +44,21 @@ public class Main extends Application {
 	}
 	
 	public static void showMoviesByGenre(String GenreId) throws IOException {
-//		 System.out.println("name: "+GenreName);
 		FXMLLoader loader = new FXMLLoader();
-	
 		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
-	
-			
 		AnchorPane mainViewScene = loader.load();
 		MainViewController controller = loader.<MainViewController>getController();			
 		controller.getMoviesByGenre(GenreId);
-		///didnt pass this
-		
-			rootLayout.setCenter(mainViewScene);
+		rootLayout.setCenter(mainViewScene);
 	}
 	
-	public static void showMovieListScene() throws IOException {
+	public static void showMovieInfoScene(MovieTuple.Compact mv) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("view/MovieList.fxml"));
-		AnchorPane movieListScene = loader.load();
-		rootLayout.setCenter(movieListScene);
+		loader.setLocation(Main.class.getResource("view/MovieInfo.fxml"));
+		AnchorPane movieInfoScene = loader.load();
+		MovieInfoController controller = loader.<MovieInfoController>getController();			
+		controller.getMovieInfo(mv);
+		rootLayout.setCenter(movieInfoScene);
 	}
 	
 	
