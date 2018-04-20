@@ -343,14 +343,14 @@ public class DBHandler {
 		}
 	}
 	
-	public int deleteMovieReview(MovieReviewTuple review) {
+	public int deleteMovieReview(String movieId, String studentId) {
 		String sql = String.format("DELETE FROM %s WHERE %s = ? AND %s = ?", 
 				MovieReviewTuple.TableName, MovieReviewTuple.StudentIdAttr, MovieReviewTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
-			prepare.setString(1, review.getStudentId());
-			prepare.setString(2, review.getMovieId());
+			prepare.setString(1, studentId);
+			prepare.setString(2, movieId);
 			return prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
@@ -387,7 +387,7 @@ public class DBHandler {
 			prepare.setString(1, review.getStudentId());
 			prepare.setString(2, review.getActorId());
 			prepare.setString(3, review.getReview());
-			prepare.setInt(4, review.getRating());
+			prepare.setFloat(4, review.getRating());
 			return prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
@@ -395,14 +395,14 @@ public class DBHandler {
 		}
 	}
 	
-	public int deleteActorReview(ActorReviewTuple review) {
+	public int deleteActorReview(String actorId, String studentId) {
 		String sql = String.format("DELETE FROM %s WHERE %s = ? AND %s = ?", 
 				ActorReviewTuple.TableName, ActorReviewTuple.StudentIdAttr, ActorReviewTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
-			prepare.setString(1, review.getStudentId());
-			prepare.setString(2, review.getActorId());
+			prepare.setString(1, studentId);
+			prepare.setString(2, actorId);
 			return prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
