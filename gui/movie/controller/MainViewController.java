@@ -27,8 +27,7 @@ public class MainViewController {
 	@FXML
 	private GridPane movieGrid;
 	
-//	Directory dir = Directory.getInstance();
-//    List<MovieTuple.Compact> allTheMovies= dir.getMovies();
+
     List<String> allMovieNames  = new ArrayList<String>();
 		
     DBHandler db = new DBHandler();
@@ -36,9 +35,7 @@ public class MainViewController {
 	
 	@FXML
 	public void initialize() {
-	//	getGrid();
 		List<MovieTuple.Compact> movies = db.fetchMovieInfos();
-
 		setMovieList(movies);
 	}
 //   public void getGrid() {
