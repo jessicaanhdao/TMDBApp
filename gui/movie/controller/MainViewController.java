@@ -75,16 +75,18 @@ public class MainViewController {
 	        	
         	Label desLbl = new Label ("Description:");
         	
-        	ListView<Label> list = new ListView<>();
+        	JFXListView<Label> list = new JFXListView<>();
         	list.getItems().add(titleLbl);
         	list.getItems().add(idLbl);
         	list.getItems().add(desLbl);
+        	list.setUserData(mv);
         	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
+					JFXListView<Label> list = (JFXListView<Label>) event.getSource();
 					try {
-						Main.showMovieInfoScene(mv);
+						Main.showMovieInfoScene((MovieTuple.Compact)list.getUserData());
 						//pass in the movie object
 						//show movie list, past movieID 
 					} catch (IOException e) {

@@ -33,7 +33,6 @@ public class RootLayoutController {
 		for (GenreTuple g: allGenres) {
 			MenuItem item =  new MenuItem(g.getGenreName());
 			item.setUserData(g.getGenreId());
-			// System.out.println("in setgenre");
 			item.setOnAction(new EventHandler<ActionEvent>() {				
 			
 				@Override
