@@ -224,9 +224,9 @@ public class DBHandler {
 	
 	public List<MovieTuple.Compact> fetchMovieInfos() {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s ORDER BY %s DESC", 
-				MovieTuple.Compact.GetProjectAttr(), MovieTuple.PopularityAttr,
-				MovieTuple.TableName, MovieTuple.PopularityAttr);
+		// NOTE: popularity is already in MovieTuple.Compact.GetProjectAttr()
+		String sql = String.format("SELECT DISTINCT %s FROM %s ORDER BY %s DESC", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, MovieTuple.PopularityAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);

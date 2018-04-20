@@ -37,7 +37,7 @@ public class MainViewController {
 	@FXML
 	public void initialize() {
 	//	getGrid();
-		List<MovieTuple.Compact> movies = db.fetchMovieInfos();
+		List<MovieTuple.Compact> movies = db.fetchMovieInfos(25);
 
 		setMovieList(movies);
 	}
