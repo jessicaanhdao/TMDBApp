@@ -52,6 +52,15 @@ public class Main extends Application {
 		rootLayout.setCenter(mainViewScene);
 	}
 	
+	public static void showSearchedMovies(String keyword) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+		AnchorPane mainViewScene = loader.load();
+		MainViewController controller = loader.<MainViewController>getController();			
+		controller.getSearchedMovies(keyword);
+		rootLayout.setCenter(mainViewScene);
+	}
+	
 	public static void showMovieInfoScene(MovieTuple.Compact mv) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/MovieInfo.fxml"));

@@ -40,7 +40,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="310.0">
                <children>
-                  <CustomTextField layoutY="2.0" prefHeight="41.0" prefWidth="401.0" promptText="Search Movie/Actor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <CustomTextField fx:id="searchBar" layoutY="2.0" onAction="#onSearch" prefHeight="41.0" prefWidth="401.0" promptText="Search Movie/Actor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

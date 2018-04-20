@@ -63,22 +63,24 @@ public class MainViewController {
 	List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
 	
 	private void setMovieList(List<MovieTuple.Compact> movieList){
+		movieGrid.getChildren().clear();
 		if (movieList.size() == 0 ){
 		//	movieGrid.clear
 		}
 		int i=0,j=0;
 	   for (MovieTuple.Compact mv: movieList) {
-		   	String id = mv.getId();
+		   	String rating = String.valueOf(mv.getVoteAverage());
 			String titleUpper = mv.getTitle().toUpperCase();		
 			Label titleLbl = new Label(titleUpper);
-			Label idLbl = new Label("ID:" +id);
+			titleLbl.setStyle("-fx-font-weight: bold");
+			Label rateLbl = new Label("Rating: " +rating);
 	        	
-        	Label desLbl = new Label ("Description:");
+        	Label starLbl = new Label ("Starring: ");
         	
         	JFXListView<Label> list = new JFXListView<>();
         	list.getItems().add(titleLbl);
-        	list.getItems().add(idLbl);
-        	list.getItems().add(desLbl);
+        	list.getItems().add(rateLbl);
+        	list.getItems().add(starLbl);
         	list.setUserData(mv);
         	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -109,19 +111,14 @@ public class MainViewController {
    }
 	
 	public void getMoviesByGenre(String GenreId) throws IOException {
-		DBHandler db = new DBHandler();
-		
-//		List<MovieTuple.Compact> genredMovies = db.getMoviesByGenres(GenreName); <-- function isnt working
+	//	DBHandler db = new DBHandler();
 		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre(GenreId);
 		 String msg = String.format("in mainctrlr. clicked genreid=%s movie num=%d", GenreId, genredMovies.size());
 		 System.out.println(msg);
 		 setMovieList(genredMovies);
 	}
-	
-//	@FXML
-//	private void goToMovieList() throws IOException {
-//		 Main.showMovieListScene();
-//	}
-//	
-	
+	public void getSearchedMovies(String keyword) {
+		List<MovieTuple.Compact> searchedMovies = db.searchMovie(keyword);
+		setMovieList(searchedMovies);
+	}	
 }

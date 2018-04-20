@@ -7,11 +7,13 @@ import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import movie.Main;
 import movie.database.DBHandler;
 import movie.database.MovieTuple;
@@ -48,10 +50,26 @@ public class MovieInfoController {
 		nameCol.getItems().add("Overview");
 		nameCol.getItems().add("Release Date");
 		valCol.getItems().add(String.valueOf(mv.getVoteAverage()));
-		valCol.getItems().add(mv.getTitle());
+		valCol.getItems().add(overview);
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date releaseDate = mv.getReleaseDate();
 		valCol.getItems().add(df.format(releaseDate));
+		
+		valCol.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(final ListView<String> list) {
+                return new ListCell<String>() {
+                    {
+                        Text text = new Text();
+                        text.wrappingWidthProperty().bind(list.widthProperty().subtract(15));
+                        text.textProperty().bind(itemProperty());
+
+                        setPrefWidth(0);
+                        setGraphic(text);
+                    }
+                };
+            }
+        });
 	}
 	@FXML
 	private void goToMainPage() throws IOException {

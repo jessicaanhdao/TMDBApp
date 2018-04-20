@@ -4,20 +4,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.controlsfx.control.textfield.CustomTextField;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import movie.Main;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
-import movie.database.MovieTuple;
 
 public class RootLayoutController {
-	private Main main;
-	
+	@FXML
+    private CustomTextField searchBar;
+
 	@FXML
 	private Menu genreMenu;
 	DBHandler db = new DBHandler();
@@ -39,10 +40,10 @@ public class RootLayoutController {
 				public void handle(ActionEvent t) {
 			        try {
 			        	MenuItem item = (MenuItem) t.getSource();
-			        	System.out.println("You clicked on: "+item.getText());
+			        	//System.out.println("You clicked on: "+item.getText());
 						String id = (String)item.getUserData();
 			        	Main.showMoviesByGenre(id);
-						System.out.println("You clicked on: "+item.getText());
+					//	System.out.println("You clicked on: "+item.getText());
 
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -58,15 +59,10 @@ public class RootLayoutController {
 	}
 	
 	@FXML 
-	private void getMoviesbyGenres() {
-		//get whatever is clicked
-		
+	private void onSearch() throws IOException {
+		System.out.println(	searchBar.getText());
+		Main.showSearchedMovies(searchBar.getText());
 	}
 	
-	//how to go to the page with corresponding attribute
-	@FXML
-	private void goToGenreMovies() {
-		//pass "genre name" to getMoviesByGenres
-		//reload this goddamn page
-	}
+	
 }
