@@ -139,7 +139,7 @@ class DBHandlerTest {
 		String studentId = "0xffff";
 		String movieId = "19995"; // avatar
 		String review = "It's an art!!!";
-		int rating = 5;
+		float rating = 4.5f;
 		MovieReviewTuple movieReview = new MovieReviewTuple(studentId, movieId, review, rating);
 		DBHandler db = new DBHandler();
 		int ret = db.insertMovieReview(movieReview);
@@ -148,14 +148,14 @@ class DBHandlerTest {
 		List<MovieReviewTuple> qs = db.getMovieReviews(movieId);
 		boolean found = false;
 		for (int i=0; i<qs.size(); ++i) {
-			if (qs.get(i).getStudentId().equals(studentId)) {
+			if (qs.get(i).getStudentId().equals(studentId) && qs.get(i).getReview().equals(review)) {
 				found = true;
 				break;
 			}
 		}
 		assertTrue(found);
 
-		ret = db.deleteMovieReview(movieReview);
+		ret = db.deleteMovieReview(movieId, studentId);
 		assertEquals(ret, 1);
 		
 		// invalid case
@@ -170,7 +170,7 @@ class DBHandlerTest {
 		String studentId = "0xffff";
 		String actorId = "1817"; // Linda Cardellini
 		String review = "Good";
-		int rating = 5;
+		float rating = 4.5f;
 		ActorReviewTuple actorReview = new ActorReviewTuple(studentId, actorId, review, rating);
 		DBHandler db = new DBHandler();
 		int ret = db.insertActorReview(actorReview);
@@ -179,14 +179,14 @@ class DBHandlerTest {
 		List<ActorReviewTuple> qs = db.getActorReviews(actorId);
 		boolean found = false;
 		for (int i=0; i<qs.size(); ++i) {
-			if (qs.get(i).getStudentId().equals(studentId)) {
+			if (qs.get(i).getStudentId().equals(studentId) && qs.get(i).getReview().equals(review)) {
 				found = true;
 				break;
 			}
 		}
 		assertTrue(found);
 		
-		ret = db.deleteActorReview(actorReview);
+		ret = db.deleteActorReview(actorId, studentId);
 		assertEquals(ret, 1);
 		
 		// invalid case

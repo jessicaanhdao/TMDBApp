@@ -26,7 +26,7 @@ public class MovieReviewTuple {
 	public MovieReviewTuple(ResultSet r) throws SQLException {
 		this.studentId = r.getString(StudentIdAttr);
 		this.movieId = r.getString(MovieIdAttr);
-		this.rating = r.getInt(RatingAttr);
+		this.rating = r.getFloat(RatingAttr);
 		this.review = r.getString(ReviewAttr);
 	}
 
@@ -58,7 +58,7 @@ public class MovieReviewTuple {
 		return rating;
 	}
 
-	private void setRating(float rating) {
-		this.rating = rating;
+	private void setRating(float rating2) {
+		this.rating = rating2;
 	}
 }
