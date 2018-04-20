@@ -13,13 +13,13 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <ScrollPane fx:id="reviewList" disable="true" hbarPolicy="NEVER" prefHeight="217.0" prefWidth="487.0" />
+            <ScrollPane fx:id="reviewList" hbarPolicy="NEVER" prefHeight="217.0" prefWidth="487.0" />
          </center>
          <bottom>
             <SplitPane dividerPositions="0.1, 0.1, 0.5" orientation="VERTICAL" prefHeight="174.0" prefWidth="322.0" BorderPane.alignment="CENTER">
                <items>
                   <TextField fx:id="newID" promptText="Your Student ID" />
-                  <Rating fx:id="newRating" rating="0.0" updateOnHover="true" />
+                  <Rating fx:id="newRating" partialRating="true" rating="0.0" updateOnHover="true" />
                   <TextArea fx:id="newReview" prefHeight="200.0" prefWidth="200.0" promptText="Type your review" />
                   <JFXButton fx:id="submitButton" onAction="#insertMovieReview" style="-fx-background-color: #1212;" text="Submit Comment" />
                </items>

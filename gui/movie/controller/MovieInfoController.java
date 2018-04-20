@@ -48,10 +48,12 @@ public class MovieInfoController {
 	public void initialize() {
 	}
 	public void getMovieInfo(MovieTuple.Compact mv) {
-		genreID = mv.getId();
+		//genreID = mv);
+		movieID = mv.getId();
 		DBHandler db = new DBHandler();
 		MovieTuple movieInfo = db.getMovieById(mv.getId());
 		String overview = movieInfo.getOverview();
+//		genreID = movieInfo.getGenres(); this is a list
 		movieName.setText(mv.getTitle());
 		
 		nameCol.getItems().add("Rating");
@@ -101,7 +103,7 @@ public class MovieInfoController {
 //            }
 //        });
 	}
-	String genreID ;
+	String genreID,movieID ;
 	@FXML
 	private void goToMainPage() throws IOException {
 		//get movieGenre 
