@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import movie.Main;
+import movie.database.DBHandler;
 import movie.database.MovieTuple;
 //import movie.database.MovieTuple.Compact;
 
@@ -36,6 +37,9 @@ public class MovieInfoController {
 		//nameCol.setCellValueFactory(new PropertyValueFactory<String,String>("firstName"));
 	}
 	public void getMovieInfo(MovieTuple.Compact mv) {
+		DBHandler db = new DBHandler();
+		MovieTuple movieInfo = db.getMovieById(mv.getId());
+		String overview = movieInfo.getOverview();
 		System.out.println(mv.getTitle());
 		System.out.println(mv.getPopularity());
 		movieName.setText(mv.getTitle());
