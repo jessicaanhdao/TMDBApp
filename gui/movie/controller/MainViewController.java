@@ -31,11 +31,14 @@ public class MainViewController {
 //    List<MovieTuple.Compact> allTheMovies= dir.getMovies();
     List<String> allMovieNames  = new ArrayList<String>();
 		
-	
+    DBHandler db = new DBHandler();
+
 	
 	@FXML
 	public void initialize() {
 	//	getGrid();
+		List<MovieTuple.Compact> movies = db.fetchMovieInfos();
+
 		setMovieList(movies);
 	}
 //   public void getGrid() {
@@ -58,9 +61,8 @@ public class MainViewController {
    
    //private ListView<String> movieList;
    
-   String partialTitle = "pira";
-	DBHandler db = new DBHandler();
-	List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
+
+	
 	
 	private void setMovieList(List<MovieTuple.Compact> movieList){
 		movieGrid.getChildren().clear();
