@@ -200,9 +200,7 @@ class DBHandlerTest {
 		// System.out.println("testFetchMovies");
 		DBHandler db = new DBHandler();
 		List<MovieTuple.Compact> movies = db.fetchMovieInfos(20);
-		/* for (MovieTuple.Compact c: movies) {
-			System.out.println(c.getPopularity());
-		} */
+		assertEquals(movies.size(), 20);
 		for (int i=0; i<movies.size()-1; ++i) {
 			float m1 = movies.get(i).getPopularity();
 			float m2 = movies.get(i+1).getPopularity();

@@ -224,9 +224,9 @@ public class DBHandler {
 	
 	public List<MovieTuple.Compact> fetchMovieInfos() {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
-		String sql = String.format("SELECT DISTINCT %s , %s FROM %s ORDER BY %s DESC", 
-				MovieTuple.Compact.GetProjectAttr(), MovieTuple.PopularityAttr,
-				MovieTuple.TableName, MovieTuple.PopularityAttr);
+		// NOTE: popularity is already in MovieTuple.Compact.GetProjectAttr()
+		String sql = String.format("SELECT DISTINCT %s FROM %s ORDER BY %s DESC", 
+				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, MovieTuple.PopularityAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
@@ -335,7 +335,7 @@ public class DBHandler {
 			prepare.setString(1, review.getStudentId());
 			prepare.setString(2, review.getMovieId());
 			prepare.setString(3, review.getReview());
-			prepare.setInt(4, review.getRating());
+			prepare.setFloat(4, review.getRating());
 			return prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));

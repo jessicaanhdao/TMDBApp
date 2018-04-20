@@ -69,6 +69,12 @@ public class Main extends Application {
 		controller.getMovieInfo(mv);
 		rootLayout.setCenter(movieInfoScene);
 	}
+	public static void showReviewScene() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/Review.fxml"));
+		AnchorPane reviewScene = loader.load();
+		rootLayout.setCenter(reviewScene);
+	}
 	
 	
 	public static void main(String[] args) {

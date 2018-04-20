@@ -41,16 +41,17 @@ public class MovieInfoController {
     
     @FXML
     private Button backButton;
+    @FXML
+    private Button reviewButton;
     
 	@FXML
 	public void initialize() {
 	}
 	public void getMovieInfo(MovieTuple.Compact mv) {
+		genreID = mv.getId();
 		DBHandler db = new DBHandler();
 		MovieTuple movieInfo = db.getMovieById(mv.getId());
 		String overview = movieInfo.getOverview();
-		System.out.println(mv.getTitle());
-		System.out.println(mv.getPopularity());
 		movieName.setText(mv.getTitle());
 		
 		nameCol.getItems().add("Rating");
@@ -100,10 +101,16 @@ public class MovieInfoController {
 //            }
 //        });
 	}
+	String genreID ;
 	@FXML
 	private void goToMainPage() throws IOException {
 		//get movieGenre 
-		String GenreId = "Horror"; 
-		Main.showMoviesByGenre(GenreId);
+//		Main.showMoviesByGenre(genreID);
+		Main.showMainViewScene();
+	}
+	
+	@FXML
+	private void goToReview() throws IOException {
+		Main.showReviewScene();
 	}
 }

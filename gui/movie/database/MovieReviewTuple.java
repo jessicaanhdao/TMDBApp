@@ -14,9 +14,9 @@ public class MovieReviewTuple {
 	private String studentId;
 	private String movieId;
 	private String review;
-	private int rating;
+	private float rating;
 	
-	public MovieReviewTuple(String studentId, String movieId, String review, int rating) {
+	public MovieReviewTuple(String studentId, String movieId, String review, float rating) {
 		this.setStudentId(studentId);
 		this.setMovieId(movieId);
 		this.setReview(review);
@@ -54,11 +54,11 @@ public class MovieReviewTuple {
 		this.review = review;
 	}
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
-	private void setRating(int rating) {
+	private void setRating(float rating) {
 		this.rating = rating;
 	}
 }
