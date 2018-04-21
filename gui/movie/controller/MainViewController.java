@@ -117,12 +117,14 @@ public class MainViewController {
 	
 	public void getActorList(){
 		movieGrid.getChildren().clear();
+		System.out.println("start getting all actors");
 		List<ActorTuple> actorList = db.getAllActors();
-		List<ActorTuple> actorList2 = actorList.subList(0, 25);
 		System.out.println("actorlist size: "+actorList.size());
+		List<ActorTuple> actorList2 = actorList.subList(0, 25);
+		// System.out.println("filling UI");
 		int i=0,j=0;
 		   for (ActorTuple a: actorList2) {
-			   System.out.println(a.getActorName());
+			   // System.out.println(a.getActorName());
 			   	String name = a.getActorName().toUpperCase();		
 				Label nameLbl = new Label(name);
 				nameLbl.setStyle("-fx-font-weight: bold");
