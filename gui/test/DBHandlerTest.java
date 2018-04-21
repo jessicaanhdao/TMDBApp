@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+//import com.sun.prism.Image;
+import javafx.scene.image.Image;
+
 import movie.database.ActorReviewTuple;
 import movie.database.ActorTuple;
 import movie.database.DBHandler;
@@ -138,12 +141,16 @@ class DBHandlerTest {
 	}
 	
 	@Test
-	void testGetActorByName() {
-		String actorName = "sam worthington";
+	void testGetActorImage() {
+		String actorId = "65731";
 		DBHandler db = new DBHandler();
-		ActorTuple actor = db.getActorByName(actorName);
-		assertEquals(actor.getActorName().toUpperCase(), actorName.toUpperCase());
-		assertEquals(actor.getActorId(), "65731");
+		ActorTuple actor = db.getActorById(actorId);
+		Image img = db.tryGetActorImage(actor.getActorId());
+		double w = img.getWidth();
+		double h = img.getHeight();
+		assertTrue(w > 0 && h > 0);
+		String msg = String.format("image size: w=%f, h=%f", w, h);
+		System.out.println(msg);
 	}
 	
 	@Test

@@ -1,5 +1,8 @@
 package movie.database;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javafx.scene.image.Image;
 
 public class DBHandler {
 	private static Server CurrentServer = null;
@@ -294,7 +299,8 @@ public class DBHandler {
 			prepare.setString(1, wildCardStr);
 			ResultSet r = prepare.executeQuery();
 			while (r.next()) {
-				ret.add(new ActorTuple(r));
+				ActorTuple a = new ActorTuple(r);
+				ret.add(a);
 			}
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
@@ -326,15 +332,14 @@ public class DBHandler {
 		return ret;
 	}
 	
-	@Deprecated 
-	public ActorTuple getActorByName(String actorName) {
+	public ActorTuple getActorById(String actorId) {
 		ActorTuple actor = null;
-		String sql = String.format("SELECT * FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
-				ActorTuple.TableName, ActorTuple.ActorNameAttr);
+		String sql = String.format("SELECT * FROM %s WHERE  %s = ? ", 
+				ActorTuple.TableName, ActorTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
-			prepare.setString(1, actorName);
+			prepare.setString(1, actorId);
 			ResultSet r = prepare.executeQuery();
 			if (r.next()) {
 				actor = new ActorTuple(r);
@@ -447,6 +452,31 @@ public class DBHandler {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
 		return ret;
+	}
+	
+	// well..this is stupid
+	public Image tryGetActorImage(String actorId) {
+		String sql = String.format("SELECT %s FROM %s WHERE %s = ?", ActorTuple.ActorImageUrlAttr, 
+				ActorTuple.ImageTableName, ActorTuple.ActorIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, actorId);
+			ResultSet r = prepare.executeQuery();
+			Image img = null;
+			if (r.next()) {
+				String imageUrlPath = r.getString(ActorTuple.ActorImageUrlAttr);
+				URL url = new URL(imageUrlPath);
+				URLConnection urlConn = url.openConnection();
+				InputStream in = urlConn.getInputStream();
+				img = new Image(in);
+			}
+			return img;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			System.err.println(e.getClass());
+			return null;
+		}
 	}
 	
 	public void forceReconnect() {
