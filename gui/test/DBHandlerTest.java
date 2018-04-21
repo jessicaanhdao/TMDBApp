@@ -126,10 +126,10 @@ class DBHandlerTest {
 	
 	@Test
 	void testGetActorByName() {
-		String actorName = "Sam Worthington";
+		String actorName = "sam worthington";
 		DBHandler db = new DBHandler();
 		ActorTuple actor = db.getActorByName(actorName);
-		assertEquals(actor.getActorName(), actorName);
+		assertEquals(actor.getActorName().toUpperCase(), actorName.toUpperCase());
 		assertEquals(actor.getActorId(), "65731");
 	}
 	
@@ -155,6 +155,11 @@ class DBHandlerTest {
 		}
 		assertTrue(found);
 
+		// insert duplicate
+		ret = db.insertMovieReview(movieReview);
+		assertEquals(ret, -1);
+		
+		// delete 
 		ret = db.deleteMovieReview(movieId, studentId);
 		assertEquals(ret, 1);
 		
@@ -186,6 +191,11 @@ class DBHandlerTest {
 		}
 		assertTrue(found);
 		
+		// duplicate insertion
+		ret = db.insertActorReview(actorReview);
+		assertEquals(ret, -1);
+		
+		// delete
 		ret = db.deleteActorReview(actorId, studentId);
 		assertEquals(ret, 1);
 		

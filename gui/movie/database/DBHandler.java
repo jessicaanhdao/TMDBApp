@@ -309,7 +309,7 @@ public class DBHandler {
 	
 	public ActorTuple getActorByName(String actorName) {
 		ActorTuple actor = null;
-		String sql = String.format("SELECT * FROM %s WHERE %s = ?", 
+		String sql = String.format("SELECT * FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
 				ActorTuple.TableName, ActorTuple.ActorNameAttr);
 		Connection conn = CurrentServer.getConnection();
 		try {
