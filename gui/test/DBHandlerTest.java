@@ -126,10 +126,10 @@ class DBHandlerTest {
 	
 	@Test
 	void testGetActorByName() {
-		String actorName = "Sam Worthington";
+		String actorName = "sam worthington";
 		DBHandler db = new DBHandler();
 		ActorTuple actor = db.getActorByName(actorName);
-		assertEquals(actor.getActorName(), actorName);
+		assertEquals(actor.getActorName().toUpperCase(), actorName.toUpperCase());
 		assertEquals(actor.getActorId(), "65731");
 	}
 	
