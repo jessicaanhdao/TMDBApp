@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -12,9 +12,6 @@
 <AnchorPane prefHeight="354.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movie.controller.ReviewController">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <ScrollPane fx:id="reviewList" hbarPolicy="NEVER" prefHeight="217.0" prefWidth="487.0" />
-         </center>
          <bottom>
             <SplitPane dividerPositions="0.1, 0.1, 0.5" orientation="VERTICAL" prefHeight="174.0" prefWidth="322.0" BorderPane.alignment="CENTER">
                <items>
@@ -25,6 +22,9 @@
                </items>
             </SplitPane>
          </bottom>
+         <center>
+            <ListView fx:id="reviewList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

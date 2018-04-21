@@ -9,6 +9,7 @@ import org.controlsfx.control.Rating;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -19,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
@@ -41,15 +43,30 @@ public class MovieInfoController {
     
     @FXML
     private Button backButton;
-    @FXML
-    private Button reviewButton;
+
     
+    @FXML
+    private BorderPane moviePane;
+
 	@FXML
-	public void initialize() {
+	public void initialize() throws IOException {
+		
 	}
-	public void getMovieInfo(MovieTuple.Compact mv) {
+	private void loadReviews() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/Review.fxml"));
+		AnchorPane reviewScene = loader.load();
+		ReviewController controller = loader.<ReviewController>getController();			
+		controller.getReviewsByMovie(movieID);
+		controller.loadReviews();
+   // 	System.out.println("1/reviews for movieID in movieinfo:" + movieID);
+		moviePane.setRight(reviewScene);
+	}
+	public void getMovieInfo(MovieTuple.Compact mv) throws IOException {
 		//genreID = mv);
 		movieID = mv.getId();
+	//	System.out.println("2/reviews for movieID in movieinfo:" + movieID);
+		
 		DBHandler db = new DBHandler();
 		MovieTuple movieInfo = db.getMovieById(mv.getId());
 		String overview = movieInfo.getOverview();
@@ -102,17 +119,17 @@ public class MovieInfoController {
 //                };
 //            }
 //        });
+		loadReviews();
 	}
-	String genreID,movieID ;
+	String genreID,movieID = new String() ;
 	@FXML
 	private void goToMainPage() throws IOException {
-		//get movieGenre 
 //		Main.showMoviesByGenre(genreID);
 		Main.showMainViewScene();
 	}
 	
-	@FXML
-	private void goToReview() throws IOException {
-		Main.showReviewScene();
-	}
+//	@FXML
+//	private void goToReview() throws IOException {
+//		Main.showReviewScene(movieID);
+//	}
 }

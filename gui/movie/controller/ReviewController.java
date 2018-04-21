@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -30,35 +31,61 @@ public class ReviewController {
     private JFXButton submitButton;
  
     @FXML
-    private ScrollPane reviewList;
+    private ListView<BorderPane> reviewList;
     DBHandler db = new DBHandler();
     String movieid = "";
     @FXML
     private void initialize() {
-    	List<MovieReviewTuple> reviews = db.getMovieReviews(movieid);
+//    	System.out.println("initializing");
+//    	reloadReviews();
     }
-    
-    private void getReviewsByMovie(String movieID) {
+    public void loadReviews() {
+    	List<MovieReviewTuple> reviews = db.getMovieReviews(movieid);
+    	System.out.println("reviewlist size: "+reviews.size()+movieid);
+    	for(MovieReviewTuple r : reviews) {
+    		BorderPane pane = new BorderPane();
+    		Label id = new Label(r.getStudentId()+": ");
+    		System.out.println("student id: "+r.getStudentId());
+    		id.setStyle("-fx-font-weight: bold");
+    		TextArea review = new TextArea(r.getReview());
+    		System.out.println("review: "+r.getReview());
+    		review.setPrefHeight(50);
+    		Rating rating = new Rating();
+    		rating.setPartialRating(true);
+    		rating.setRating(r.getRating());		
+    		review.setEditable(false);
+    		rating.setDisable(true);
+    		pane.setTop(id);
+    		pane.setCenter(review);
+    		pane.setBottom(rating);
+    		reviewList.getItems().add(pane);
+       	}
+    }
+    public void getReviewsByMovie(String movieID) {
     	this.movieid = movieID;
     	System.out.println("reviews for movieID:" + movieID);
     }
 	@FXML
 	private void insertMovieReview() {
 		//MovieReviewTuple(String studentId, String movieId, String review, int rating)
-//		MovieReviewTuple newMovieReview = new MovieReviewTuple(newID.getText(), "butt", newReview.getText(), Float.valueOf(newRating.ratingProperty().toString()));
-		BorderPane pane = new BorderPane();
-		TextArea review = new TextArea(newReview.getText());
-		Rating rating = new Rating();
-		rating.setPartialRating(true);
-		rating.setRating(newRating.ratingProperty().get());
-		System.out.println(rating.ratingProperty().get());
-		
-		review.setEditable(false);
-		rating.setDisable(true);
-		
-		pane.setCenter(review);
-		pane.setTop(rating);
-		reviewList.setContent(pane);
+		MovieReviewTuple newMovieReview = new MovieReviewTuple(newID.getText(), movieid, newReview.getText(), newRating.ratingProperty().floatValue());
+		db.insertMovieReview(newMovieReview);
+//		BorderPane pane = new BorderPane();
+//		Label id = new Label(newID.getText().toUpperCase()+": ");
+//		id.setStyle("-fx-font-weight: bold");
+//		TextArea review = new TextArea(newReview.getText());
+//		review.setPrefHeight(50);
+//		Rating rating = new Rating();
+//		rating.setPartialRating(true);
+//		rating.setRating(newRating.ratingProperty().get());		
+//		review.setEditable(false);
+//		rating.setDisable(true);
+//		pane.setTop(id);
+//		pane.setCenter(review);
+//		pane.setBottom(rating);
+		reviewList.getItems().clear();
+		loadReviews();
+		//reviewList.refresh();
 	}
 	 
 }

@@ -336,6 +336,7 @@ public class DBHandler {
 			prepare.setString(2, review.getMovieId());
 			prepare.setString(3, review.getReview());
 			prepare.setFloat(4, review.getRating());
+			
 			return prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));

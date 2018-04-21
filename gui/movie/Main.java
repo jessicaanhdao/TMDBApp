@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import movie.controller.MainViewController;
 import movie.controller.MovieInfoController;
+import movie.controller.ReviewController;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.MovieTuple;
@@ -23,11 +24,11 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("TMBD App");
-		showMainView();
+		showRoot();
 		showMainViewScene() ;
 	}
 
-	private void  showMainView() throws IOException {
+	private void  showRoot() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/rootLayout.fxml"));
 		rootLayout = loader.load();
@@ -69,10 +70,12 @@ public class Main extends Application {
 		controller.getMovieInfo(mv);
 		rootLayout.setCenter(movieInfoScene);
 	}
-	public static void showReviewScene() throws IOException {
+	public static void showReviewScene(String movieID) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/Review.fxml"));
 		AnchorPane reviewScene = loader.load();
+		ReviewController controller = loader.<ReviewController>getController();			
+		controller.getReviewsByMovie(movieID);
 		rootLayout.setCenter(reviewScene);
 	}
 	
