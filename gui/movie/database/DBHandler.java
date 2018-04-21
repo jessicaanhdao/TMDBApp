@@ -280,6 +280,28 @@ public class DBHandler {
 		return ret;
 	}
 	
+	public List<ActorTuple> searchActor(String partialName) {
+		List<ActorTuple> ret = new ArrayList<>();
+		StringBuilder builder = new StringBuilder();
+		builder.append("%").append(partialName).append("%");
+		String wildCardStr = builder.toString();
+		String sql = String.format("SELECT DISTINCT %s , %s FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 
+				ActorTuple.ActorIdAttr, ActorTuple.ActorNameAttr, 
+				ActorTuple.TableName, ActorTuple.ActorNameAttr);
+		Connection conn = CurrentServer.getConnection();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare.setString(1, wildCardStr);
+			ResultSet r = prepare.executeQuery();
+			while (r.next()) {
+				ret.add(new ActorTuple(r));
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
+	}
+	
 	public List<MovieTuple.Compact> searchMovieByDate(int year, int month, int day) {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -304,6 +326,7 @@ public class DBHandler {
 		return ret;
 	}
 	
+	@Deprecated 
 	public ActorTuple getActorByName(String actorName) {
 		ActorTuple actor = null;
 		String sql = String.format("SELECT * FROM %s WHERE UPPER( %s ) LIKE UPPER( ? )", 

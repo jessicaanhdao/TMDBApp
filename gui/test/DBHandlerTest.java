@@ -116,11 +116,24 @@ class DBHandlerTest {
 		String partialTitle = "pira";
 		DBHandler db = new DBHandler();
 		List<MovieTuple.Compact> movies = db.searchMovie(partialTitle);
-		assertEquals(movies.size(), 7);
+		assertTrue(movies.size() > 0);
 		String partialTitleUpper = partialTitle.toUpperCase();
 		for (MovieTuple.Compact c: movies) {
 			String titleUpper = c.getTitle().toUpperCase();
 			assertTrue(titleUpper.contains(partialTitleUpper));
+		}
+	}
+	
+	@Test
+	void testSearchActor() {
+		String partialName = "george";
+		String partialNameUpp = partialName.toUpperCase();
+		DBHandler db = new DBHandler();
+		List<ActorTuple> actors = db.searchActor(partialName);
+		assertTrue(actors.size() > 0);
+		for (ActorTuple a: actors) {
+			String name = a.getActorName().toUpperCase();
+			assertTrue(name.contains(partialNameUpp));
 		}
 	}
 	
