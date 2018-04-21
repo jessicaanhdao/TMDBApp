@@ -474,7 +474,7 @@ public class DBHandler {
 			return img;
 		} catch (Exception e) {
 			// e.printStackTrace();
-			System.err.println(e.getClass());
+			System.err.println(e.getClass().getName());
 			return null;
 		}
 	}
