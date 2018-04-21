@@ -29,10 +29,10 @@
                               <MenuItem mnemonicParsing="false" text="Upcoming" />
                         </items>
                       </Menu>
-                        <Menu mnemonicParsing="false" text="Actors">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                          </items>
+                        <Menu fx:id="actorMenu" mnemonicParsing="false" onAction="#showActorScene" text="Actors">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#showActorScene" text="Showactors" />
+                           </items>
                         </Menu>
                     </menus>
                   </MenuBar>

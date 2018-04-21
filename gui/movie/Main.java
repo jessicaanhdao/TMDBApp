@@ -79,7 +79,16 @@ public class Main extends Application {
 		rootLayout.setCenter(reviewScene);
 	}
 	
-	
+	public static void showActorScene() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+		AnchorPane mainViewScene = loader.load();
+		MainViewController controller = loader.<MainViewController>getController();			
+		System.out.println("showed actor list");
+
+		controller.getActorList();
+		rootLayout.setCenter(mainViewScene);
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

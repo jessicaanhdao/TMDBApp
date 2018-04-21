@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import movie.Main;
+import movie.database.ActorTuple;
 import movie.database.DBHandler;
 import movie.database.MovieTuple;
 
@@ -52,13 +53,6 @@ public class MainViewController {
 //            }
 //		}
 //	}
-	
-   @FXML
-   //private ListView<MovieTuple.Compact> movieList;
-   
-   //private ListView<String> movieList;
-   
-
 	
 	
 	private void setMovieList(List<MovieTuple.Compact> movieList){
@@ -120,4 +114,50 @@ public class MainViewController {
 		List<MovieTuple.Compact> searchedMovies = db.searchMovie(keyword);
 		setMovieList(searchedMovies);
 	}	
+	
+	public void getActorList(){
+		movieGrid.getChildren().clear();
+		List<ActorTuple> actorList = db.getAllActors();
+		List<ActorTuple> actorList2 = actorList.subList(0, 25);
+		System.out.println("actorlist size: "+actorList.size());
+		int i=0,j=0;
+		   for (ActorTuple a: actorList2) {
+			   System.out.println(a.getActorName());
+			   	String name = a.getActorName().toUpperCase();		
+				Label nameLbl = new Label(name);
+				nameLbl.setStyle("-fx-font-weight: bold");
+				
+	        	JFXListView<Label> list = new JFXListView<>();
+	        	list.getItems().add(nameLbl);
+//	        	list.getItems().add(rateLbl);
+//	        	list.getItems().add(starLbl);
+//	        	list.setUserData(mv);
+//	        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//					@Override
+//					public void handle(MouseEvent event) {
+//						JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+//						try {
+//							Main.showMovieInfoScene((MovieTuple.Compact)list.getUserData());
+//							//pass in the movie object
+//							//show movie list, past movieID 
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}					    
+//				});
+	        	movieGrid.add(list, i, j);
+	        	
+	        	i++;
+	        	if (i==5 ) {
+	        		i=0;
+	        		j++;
+	        	}
+	        	if (j ==5) {
+	        		j=0;
+	        	}
+		   }
+
+	}
+	
 }

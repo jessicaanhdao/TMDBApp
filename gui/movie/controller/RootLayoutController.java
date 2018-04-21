@@ -21,6 +21,9 @@ public class RootLayoutController {
 
 	@FXML
 	private Menu genreMenu;
+	@FXML
+	private Menu actorMenu;
+	
 	DBHandler db = new DBHandler();
 	List<GenreTuple> allGenres= db.getAllGenres();
     List<String> allGenreNames  = new ArrayList<String>();
@@ -28,7 +31,19 @@ public class RootLayoutController {
     @FXML
 	public void initialize() {
     	setGenres();
-//    	genreMenu.getItems().
+//    	actorMenu.setOnAction(new EventHandler<ActionEvent>() {				
+//			
+//				@Override
+//				public void handle(ActionEvent t) {
+//			        try {
+//			        	
+//			        	Main.showActorScene();;
+//
+//					} catch (IOException e) {
+//						e.printStackTrace();							
+//					}
+//			    }
+//			});
     }
 	private void setGenres(){
 		for (GenreTuple g: allGenres) {
@@ -58,6 +73,9 @@ public class RootLayoutController {
 		System.out.println(	searchBar.getText());
 		Main.showSearchedMovies(searchBar.getText());
 	}
-	
-	
+	@FXML
+	public void showActorScene() throws IOException {
+		System.out.println("showed actor list");
+		Main.showActorScene();
+	}
 }

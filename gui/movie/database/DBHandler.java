@@ -59,7 +59,22 @@ public class DBHandler {
 	}
 	//TODO
 	public List<ActorTuple> getAllActors(){
+		String sql = String.format("SELECT DISTINCT * FROM %s", ActorTuple.TableName);
+		Connection conn = CurrentServer.getConnection();
 		List<ActorTuple> ret = new ArrayList<>();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			ResultSet r = prepare.executeQuery();
+			if (r.getFetchSize() > 0) {
+				while(r.next()) {
+					ActorTuple t = new ActorTuple(r);
+					ret.add(t);
+				}
+			}
+			prepare.close();
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
 		return ret;
 	}
 	
