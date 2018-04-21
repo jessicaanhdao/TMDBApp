@@ -40,16 +40,11 @@ public class RootLayoutController {
 				public void handle(ActionEvent t) {
 			        try {
 			        	MenuItem item = (MenuItem) t.getSource();
-			        	//System.out.println("You clicked on: "+item.getText());
 						String id = (String)item.getUserData();
 			        	Main.showMoviesByGenre(id);
-					//	System.out.println("You clicked on: "+item.getText());
 
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						 System.out.println("error my ass");
-							
+						e.printStackTrace();							
 					}
 			    }
 			});

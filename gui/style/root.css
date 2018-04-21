@@ -60,3 +60,4 @@
     -fx-background-color: #0093ff;
     -fx-text-fill: white;
 }      
+.glyph-icon{ -fx-font-family:"FontAwesome"; }

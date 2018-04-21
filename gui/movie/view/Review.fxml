@@ -18,7 +18,7 @@
                   <TextField fx:id="newID" promptText="Your Student ID" />
                   <Rating fx:id="newRating" partialRating="true" rating="0.0" updateOnHover="true" />
                   <TextArea fx:id="newReview" prefHeight="200.0" prefWidth="200.0" promptText="Type your review" />
-                  <JFXButton fx:id="submitButton" onAction="#insertMovieReview" style="-fx-background-color: #1212;" text="Submit Comment" />
+                  <JFXButton fx:id="submitButton" onAction="#insertMovieReview" style="-fx-background-color: #1212; -fx-border-radius: 20;" text="Submit Comment" />
                </items>
             </SplitPane>
          </bottom>
