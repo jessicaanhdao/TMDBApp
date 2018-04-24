@@ -395,36 +395,56 @@ public class DBHandler {
 				MovieReviewTuple.TableName, 
 				MovieReviewTuple.StudentIdAttr, MovieReviewTuple.MovieIdAttr, MovieReviewTuple.ReviewAttr, MovieReviewTuple.RatingAttr);
 		Connection conn = CurrentServer.getConnection();
+		int ret = -1;
+		PreparedStatement prepare = null;
 		try {
-			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare = conn.prepareStatement(sql);
 			prepare.setString(1, review.getStudentId());
 			prepare.setString(2, review.getMovieId());
 			prepare.setString(3, review.getReview());
 			prepare.setFloat(4, review.getRating());
-			int ret = prepare.executeUpdate();
-			prepare.close();
-			return ret;
+			ret = prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
-			return -1;
 		}
+		
+		if (prepare != null) {
+			try {
+				prepare.close();
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			}
+		}
+		
+		return ret;
 	}
 	
 	public int deleteMovieReview(String movieId, String studentId) {
 		String sql = String.format("DELETE FROM %s WHERE %s = ? AND %s = ?", 
 				MovieReviewTuple.TableName, MovieReviewTuple.StudentIdAttr, MovieReviewTuple.MovieIdAttr);
 		Connection conn = CurrentServer.getConnection();
+		int ret = -1;
+		PreparedStatement prepare = null;
 		try {
-			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare = conn.prepareStatement(sql);
 			prepare.setString(1, studentId);
 			prepare.setString(2, movieId);
-			int ret = prepare.executeUpdate();
-			prepare.close();
-			return ret;
+			ret = prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
-			return -1;
 		}
+		
+		if (prepare != null) {
+			try {
+				prepare.close();
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			}
+		}
+		
+		return ret;
 	}
 	
 	public List<MovieReviewTuple> getMovieReviews(String movieId) {
@@ -453,36 +473,56 @@ public class DBHandler {
 				ActorReviewTuple.StudentIdAttr, ActorReviewTuple.ActorIdAttr, ActorReviewTuple.ReviewAttr, 
 				ActorReviewTuple.RatingAttr);
 		Connection conn = CurrentServer.getConnection();
+		PreparedStatement prepare = null;
+		int ret = -1;
 		try {
-			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare = conn.prepareStatement(sql);
 			prepare.setString(1, review.getStudentId());
 			prepare.setString(2, review.getActorId());
 			prepare.setString(3, review.getReview());
 			prepare.setFloat(4, review.getRating());
-			int ret = prepare.executeUpdate();
-			prepare.close();
-			return ret;
+			ret = prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
-			return -1;
 		}
+		
+		if (prepare != null) {
+			try {
+				prepare.close();
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			}
+		}
+		
+		return ret;
 	}
 	
 	public int deleteActorReview(String actorId, String studentId) {
 		String sql = String.format("DELETE FROM %s WHERE %s = ? AND %s = ?", 
 				ActorReviewTuple.TableName, ActorReviewTuple.StudentIdAttr, ActorReviewTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
+		int ret = -1;
+		PreparedStatement prepare = null;
 		try {
-			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare = conn.prepareStatement(sql);
 			prepare.setString(1, studentId);
 			prepare.setString(2, actorId);
-			int ret = prepare.executeUpdate();
-			prepare.close();
-			return ret;
+			ret = prepare.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
-			return -1;
 		}
+		
+		if (prepare != null) {
+			try {
+				prepare.close();
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+			}
+		}
+		
+		return ret;
 	}
 	
 	public List<ActorReviewTuple> getActorReviews(String actorId) {
@@ -510,11 +550,13 @@ public class DBHandler {
 		String sql = String.format("SELECT %s FROM %s WHERE %s = ?", ActorTuple.ActorImageUrlAttr, 
 				ActorTuple.ImageTableName, ActorTuple.ActorIdAttr);
 		Connection conn = CurrentServer.getConnection();
+		Image img = null;
+		PreparedStatement prepare = null;
+		ResultSet r = null;
 		try {
-			PreparedStatement prepare = conn.prepareStatement(sql);
+			prepare = conn.prepareStatement(sql);
 			prepare.setString(1, actorId);
-			ResultSet r = prepare.executeQuery();
-			Image img = null;
+			r = prepare.executeQuery();
 			if (r.next()) {
 				String imageUrlPath = r.getString(ActorTuple.ActorImageUrlAttr);
 				URL url = new URL(imageUrlPath);
@@ -524,12 +566,24 @@ public class DBHandler {
 			}
 			prepare.close();
 			r.close();
-			return img;
+			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			System.err.println(e.getClass().getName());
-			return null;
 		}
+		
+		try {
+			if (prepare != null) {
+				prepare.close();
+			}
+			if (r != null) {
+				r.close();
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		
+		return img;
 	}
 	
 	public void forceReconnect() {
