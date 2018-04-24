@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import movie.Main;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
@@ -29,7 +30,9 @@ public class RootLayoutController {
 	private Menu actorMenu;
 	@FXML
     private JFXToggleButton toggleSearch;
-	 
+	 @FXML
+    private SplitPane searchSplit;
+ 
 	DBHandler db = new DBHandler();
 	List<GenreTuple> allGenres= db.getAllGenres();
     List<String> allGenreNames  = new ArrayList<String>();
@@ -37,7 +40,9 @@ public class RootLayoutController {
     @FXML
 	public void initialize() {
     	setGenres();
-    	actorMenu.setOnAction(new EventHandler<ActionEvent>() {				
+    	
+    //	searchSplit.setDividerPositions(0.5);
+		actorMenu.setOnAction(new EventHandler<ActionEvent>() {				
 			
 				@Override
 				public void handle(ActionEvent t) {
@@ -60,11 +65,14 @@ public class RootLayoutController {
 			
 				@Override
 				public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
+//				 	searchSplit.setDividerPositions(0.5);
+//					System.out.println(searchSplit.getDividerPositions()[0]);
+//					
 					if (toggleSearch.isSelected() == true) {
 						searchBar.setPromptText("Search Actors");
 						toggleSearch.setText("Search Actors");
 						searchBar.setOnAction(new EventHandler<ActionEvent>() {				
-							
+						
 							@Override
 							public void handle(ActionEvent t) {
 						        try {
@@ -78,6 +86,7 @@ public class RootLayoutController {
 					} else {
 						searchBar.setPromptText("Search Movies");
 						toggleSearch.setText("Search Movies");
+
 						searchBar.setOnAction(new EventHandler<ActionEvent>() {				
 							
 							@Override

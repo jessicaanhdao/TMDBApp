@@ -12,12 +12,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import movie.Main;
 import movie.database.ActorTuple;
 import movie.database.DBHandler;
@@ -67,28 +74,50 @@ public class MainViewController {
 			Label titleLbl = new Label(titleUpper);
 			titleLbl.setStyle("-fx-font-weight: bold");
 			Label rateLbl = new Label("Rating: " +rating);
-	        	
-        	Label starLbl = new Label ("Starring: ");
-        	
-        	JFXListView<Label> list = new JFXListView<>();
+			Label starLbl = new Label ("Starring: ", new Hyperlink());
+        	List<MovieTuple.Cast> casts = db.getCastsByMovie(mv.getId()); 
+        	for(MovieTuple.Cast c: casts) {
+    			starLbl.setText(starLbl.getText() +c.getCharName()+". ");
+    			
+    		}
+        	starLbl.setWrapText(true);
+        	starLbl.setTextAlignment(TextAlignment.JUSTIFY);
+        	starLbl.setMinWidth(100);
+        	JFXListView<Label> list = new JFXListView<>();        	
         	list.getItems().add(titleLbl);
         	list.getItems().add(rateLbl);
         	list.getItems().add(starLbl);
-        	//list.setUserData(mv);
         	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
 				@Override
 				public void handle(MouseEvent event) {
-				//	JFXListView<Label> list = (JFXListView<Label>) event.getSource();
 					try {
 						Main.showMovieInfoScene(mv);
-						//pass in the movie object
-						//show movie list, past movieID 
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}					    
 			});
+//        	list.setCellFactory(new Callback<ListView<Label>, ListCell<Label>>() {
+//                @Override
+//                public ListCell<Label> call(ListView<Label> stringListView) {
+//                    final ListCell<Label> cell = new ListCell<Label>() {
+//
+//                        protected void updateItem(Label item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (!empty) {
+//
+//                                setText(item.getText());
+//                                setWrapText(true);
+//
+//                                // Setting maxWidth has no effect either.
+//                                setMaxWidth(150);
+//                                setMinWidth(100);
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//            });
         	movieGrid.add(list, i, j);
         	
         	i++;

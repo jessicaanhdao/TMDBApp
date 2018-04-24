@@ -60,9 +60,7 @@ public class ActorInfoController {
 			    	e.getSource();
 			      try {
 					Main.showMovieInfoScene(mv);
-				//	System.out.println(mv.getId());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					};
 			    }
