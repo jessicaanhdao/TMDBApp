@@ -2,15 +2,20 @@ package movie.controller;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.controlsfx.control.Rating;
 
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -22,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 import movie.Main;
@@ -75,6 +81,8 @@ public class MovieInfoController {
 		nameCol.getItems().add("Rating");
 		nameCol.getItems().add("Overview");
 		nameCol.getItems().add("Release Date");
+		nameCol.getItems().add("Popularity");
+		nameCol.getItems().add("Actors");
 		Rating rating  = new Rating();
 	    rating.setPartialRating(true);
 	    rating.setRating(mv.getVoteAverage()/2);
@@ -90,7 +98,9 @@ public class MovieInfoController {
 		
 		AnchorPane anchorPane2 = new AnchorPane();
 		 Label label2 = new Label(overview);
-//		label2.setText(overview);
+		 
+		 label2.prefWidth(100);
+		 System.out.println("width: "+label2.prefHeightProperty());
 		anchorPane2.getChildren().add(label2);
 		valCol.getItems().add(anchorPane2);
 
@@ -99,10 +109,38 @@ public class MovieInfoController {
 		Date releaseDate = mv.getReleaseDate();
 		AnchorPane anchorPane3 = new AnchorPane();
 		 Label label3 = new Label(df.format(releaseDate));
-	//	label2.setText(overview);
 		anchorPane3.getChildren().add(label3);
 		valCol.getItems().add(anchorPane3);
+
+		AnchorPane anchorPane4 = new AnchorPane();
+		DecimalFormat numberFormat = new DecimalFormat("#");
+	    Label label4 = new Label(String.valueOf(numberFormat.format(mv.getPopularity())));
+	    anchorPane4.getChildren().add(label4);
+		valCol.getItems().add(anchorPane4);
 		
+		TextFlow flow = new TextFlow();
+		List<MovieTuple.Cast> casts = db.getCastsByMovie(mv.getId()); 
+    	for(MovieTuple.Cast c: casts) {
+    		Hyperlink link = new Hyperlink(c.getActor().getActorName());
+			link.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent e) {
+			    	e.getSource();
+			      try {
+					Main.showActorInfoScene(c.getActor());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					};
+			    }
+			});
+			flow.getChildren().add(link);
+			flow.getChildren().add(new Text(" ,"));
+			
+		}
+    	AnchorPane anchorPane5 = new AnchorPane();
+    	anchorPane5.getChildren().add(flow);
+  		valCol.getItems().add(anchorPane5);
+  		
 //		valCol.setCellFactory(new Callback<ListView<AnchorPane>, ListCell<AnchorPane>>() {
 //            @Override
 //            public ListCell<AnchorPane> call(final ListView<AnchorPane> list) {

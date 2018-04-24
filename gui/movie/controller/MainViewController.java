@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -43,6 +44,7 @@ public class MainViewController {
 	
 	@FXML
 	public void initialize() {
+		//GridPane.setHgrow(movieGrid, Priority.ALWAYS);
 		List<MovieTuple.Compact> movies = db.fetchMovieInfos(25);
 		setMovieList(movies);
 	}
@@ -77,7 +79,7 @@ public class MainViewController {
 			Label starLbl = new Label ("Starring: ", new Hyperlink());
         	List<MovieTuple.Cast> casts = db.getCastsByMovie(mv.getId()); 
         	for(MovieTuple.Cast c: casts) {
-    			starLbl.setText(starLbl.getText() +c.getCharName()+". ");
+    			starLbl.setText(starLbl.getText() +c.getActor().getActorName()+". ");
     			
     		}
         	starLbl.setWrapText(true);
