@@ -136,7 +136,7 @@ public class MainViewController {
 	
 	public void getMoviesByGenre(String GenreId) throws IOException {
 	//	DBHandler db = new DBHandler();
-		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre(GenreId);
+		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre(GenreId, 25);
 		 String msg = String.format("in mainctrlr. clicked genreid=%s movie num=%d", GenreId, genredMovies.size());
 		 System.out.println(msg);
 		 setMovieList(genredMovies);

@@ -65,6 +65,7 @@ public class DBHandler {
 	}
 	
 	// this one takes some time before returing actor list
+	@Deprecated
 	public List<ActorTuple> getAllActors(){
 		// "SELECT DISTINCT * FROM %s WHERE LENGTH(ACTOR_ID) < 3" this one is workaround WWW
 		String sql = String.format("SELECT DISTINCT * FROM %s", ActorTuple.TableName);
@@ -190,7 +191,7 @@ public class DBHandler {
 		return ret;
 	}
 	
-	public List<MovieTuple.Compact> getMovieInfoByGenre(String genreId) {
+	public List<MovieTuple.Compact> getMovieInfoByGenre(String genreId, int num) {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
 		String sql = String.format("SELECT DISTINCT %s FROM %s NATURAL JOIN %s WHERE %s = ?", 
 				MovieTuple.Compact.GetProjectAttr(), MovieTuple.TableName, GenreTuple.RelationName, GenreTuple.GenreIdAttr);
@@ -199,7 +200,7 @@ public class DBHandler {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			prepare.setString(1, genreId);
 			ResultSet r = prepare.executeQuery();
-			while (r.next()) {
+			while (r.next() && num-- > 0) {
 				ret.add(new MovieTuple.Compact(r));
 			}
 			prepare.close();
@@ -210,7 +211,7 @@ public class DBHandler {
 		return ret;
 	}
 	
-	public List<MovieTuple.Compact> getMovieInfoByKeywordName(String[] keywordNames) {
+	public List<MovieTuple.Compact> getMovieInfoByKeywordName(String[] keywordNames, int num) {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
 		StringBuilder builder = new StringBuilder();
 		for (int i=0; i<keywordNames.length; ++i) {
@@ -231,7 +232,7 @@ public class DBHandler {
 				prepare.setString(i+1, keywordNames[i].trim());
 			}
 			ResultSet r = prepare.executeQuery();
-			while (r.next()) {
+			while (r.next() && num-- > 0) {
 				ret.add(new MovieTuple.Compact(r));
 			}
 			prepare.close();
@@ -243,16 +244,6 @@ public class DBHandler {
 	}
 	
 	public List<MovieTuple.Compact> fetchMovieInfos(int num) {
-		List<MovieTuple.Compact> allInfo = this.fetchMovieInfos();
-		if (allInfo.size() <= num) return allInfo;
-		List<MovieTuple.Compact> selected = new ArrayList<>();
-		for (int i=0; i<num; ++i) {
-			selected.add(allInfo.get(i));
-		}
-		return selected;
-	}
-	
-	public List<MovieTuple.Compact> fetchMovieInfos() {
 		List<MovieTuple.Compact> ret = new ArrayList<>();
 		// NOTE: popularity is already in MovieTuple.Compact.GetProjectAttr()
 		String sql = String.format("SELECT DISTINCT %s FROM %s ORDER BY %s DESC", 
@@ -261,7 +252,7 @@ public class DBHandler {
 		try {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			ResultSet r = prepare.executeQuery();
-			while(r.next()) {
+			while(r.next() && num-- > 0) {
 				ret.add(new MovieTuple.Compact(r));
 			}
 			prepare.close();

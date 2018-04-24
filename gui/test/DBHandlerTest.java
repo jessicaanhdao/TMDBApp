@@ -86,7 +86,7 @@ class DBHandlerTest {
 	void testGetMovieByGenre() {
 		DBHandler db = new DBHandler();
 		String genreId = "28"; // action
-		List<MovieTuple.Compact> m = db.getMovieInfoByGenre(genreId);
+		List<MovieTuple.Compact> m = db.getMovieInfoByGenre(genreId, Integer.MAX_VALUE);
 		assertEquals(m.size(), 531);
 	}
 	
@@ -95,12 +95,12 @@ class DBHandlerTest {
 		DBHandler db = new DBHandler();
 		String kwStr = "futuristic, romance, space";
 		String[] kwNames = kwStr.split(",");
-		List<MovieTuple.Compact> movies = db.getMovieInfoByKeywordName(kwNames);
+		List<MovieTuple.Compact> movies = db.getMovieInfoByKeywordName(kwNames, Integer.MAX_VALUE);
 		assertEquals(movies.size(), 24);
 		
 		String kwStr2 = "futuristic";
 		String[] kwNames2 = kwStr2.split(",");
-		List<MovieTuple.Compact> movies2 = db.getMovieInfoByKeywordName(kwNames2);
+		List<MovieTuple.Compact> movies2 = db.getMovieInfoByKeywordName(kwNames2, Integer.MAX_VALUE);
 		assertEquals(movies2.size(), 7);
 	}
 	
