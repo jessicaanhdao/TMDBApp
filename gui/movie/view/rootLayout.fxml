@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -28,7 +29,12 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="310.0">
                <children>
-                  <CustomTextField fx:id="searchBar" layoutY="2.0" onAction="#onSearch" prefHeight="41.0" prefWidth="401.0" promptText="Search Movie/Actor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <SplitPane dividerPositions="0.6" prefHeight="36.0" prefWidth="401.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <items>
+                        <JFXToggleButton fx:id="toggleSearch" unToggleColor="#b79dcf" unToggleLineColor="#cec3d9" />
+                        <CustomTextField fx:id="searchBar" onAction="#searchMovies" prefHeight="41.0" prefWidth="401.0" />
+                     </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
         </items>

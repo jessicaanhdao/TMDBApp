@@ -86,7 +86,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
 		AnchorPane mainViewScene = loader.load();
 		MainViewController controller = loader.<MainViewController>getController();			
-		controller.getActorList();
+		controller.getRandomActor();
 		rootLayout.setCenter(mainViewScene);
 	}
 	public static void showActorInfoScene(ActorTuple a) throws IOException {
@@ -96,6 +96,14 @@ public class Main extends Application {
 		ActorInfoController controller = loader.<ActorInfoController>getController();			
 		controller.getActorInfo(a);
 		rootLayout.setCenter(movieInfoScene);
+	}
+	public static void showSearchedActors(String keyword) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+		AnchorPane mainViewScene = loader.load();
+		MainViewController controller = loader.<MainViewController>getController();			
+		controller.getSearchedActors(keyword);
+		rootLayout.setCenter(mainViewScene);
 	}
 	public static void main(String[] args) {
 		launch(args);

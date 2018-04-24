@@ -69,13 +69,13 @@ public class ReviewController {
     		JFXButton delBut = new JFXButton ();
     		delBut.setStyle("-fx-background-color:  #1212; -fx-border-radius: 100");
     		delBut.setGraphic(icon);
-    		delBut.setUserData(r);
+    	//	delBut.setUserData(r);
     		delBut.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					JFXButton butt =  (JFXButton) event.getSource();
-					MovieReviewTuple rv = (MovieReviewTuple) butt.getUserData();
-					db.deleteMovieReview(rv.getMovieId(), rv.getStudentId());
+//					JFXButton butt =  (JFXButton) event.getSource();
+//					MovieReviewTuple rv = (MovieReviewTuple) butt.getUserData();
+					db.deleteMovieReview(r.getMovieId(), r.getStudentId());
 					reviewList.getItems().clear();
 					loadMovieReviews();
 				}					    
@@ -127,13 +127,13 @@ public class ReviewController {
 	    		JFXButton delBut = new JFXButton ();
 	    		delBut.setStyle("-fx-background-color:  #1212; -fx-border-radius: 100");
 	    		delBut.setGraphic(icon);
-	    		delBut.setUserData(r);
+//	    		delBut.setUserData(r);
 	    		delBut.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						JFXButton butt =  (JFXButton) event.getSource();
-						ActorReviewTuple rv = (ActorReviewTuple) butt.getUserData();
-						db.deleteActorReview(rv.getActorId(), rv.getStudentId());
+	//					JFXButton butt =  (JFXButton) event.getSource();
+		//				ActorReviewTuple rv = (ActorReviewTuple) butt.getUserData();
+						db.deleteActorReview(r.getActorId(), r.getStudentId());
 						reviewList.getItems().clear();
 						loadActorReviews();
 					}					    

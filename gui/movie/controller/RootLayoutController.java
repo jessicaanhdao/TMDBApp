@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.controlsfx.control.textfield.CustomTextField;
 
+import com.jfoenix.controls.JFXToggleButton;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +27,9 @@ public class RootLayoutController {
 	private Menu genreMenu;
 	@FXML
 	private Menu actorMenu;
-	
+	@FXML
+    private JFXToggleButton toggleSearch;
+	 
 	DBHandler db = new DBHandler();
 	List<GenreTuple> allGenres= db.getAllGenres();
     List<String> allGenreNames  = new ArrayList<String>();
@@ -35,22 +41,70 @@ public class RootLayoutController {
 			
 				@Override
 				public void handle(ActionEvent t) {
-			        searchBar.setPromptText("Search Actors");
+					toggleSearch.setSelected(true);
+					
 			    }
+			});
+    	genreMenu.setOnAction(new EventHandler<ActionEvent>() {				
+			
+			@Override
+			public void handle(ActionEvent t) {
+				toggleSearch.setSelected(false);
+				
+		    }
+		});
+    	searchBar.setPromptText("Search Movies");
+		toggleSearch.setText("Search Movies");
+		
+    	toggleSearch.selectedProperty().addListener(new ChangeListener<Boolean>() {				
+			
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
+					if (toggleSearch.isSelected() == true) {
+						searchBar.setPromptText("Search Actors");
+						toggleSearch.setText("Search Actors");
+						searchBar.setOnAction(new EventHandler<ActionEvent>() {				
+							
+							@Override
+							public void handle(ActionEvent t) {
+						        try {
+									searchActors();
+						        } catch (IOException e) {
+									e.printStackTrace();
+								}
+						    }
+						});
+
+					} else {
+						searchBar.setPromptText("Search Movies");
+						toggleSearch.setText("Search Movies");
+						searchBar.setOnAction(new EventHandler<ActionEvent>() {				
+							
+							@Override
+							public void handle(ActionEvent t) {
+						        try {
+						        	searchMovies();
+						        } catch (IOException e) {
+									e.printStackTrace();
+								}
+						    }
+						});
+					}
+				}
 			});
     }
 	private void setGenres(){
 		for (GenreTuple g: allGenres) {
 			MenuItem item =  new MenuItem(g.getGenreName());
-			item.setUserData(g.getGenreId());
+//			item.setUserData(g.getGenreId());
 			item.setOnAction(new EventHandler<ActionEvent>() {				
 			
 				@Override
 				public void handle(ActionEvent t) {
 			        try {
-			        	MenuItem item = (MenuItem) t.getSource();
-						String id = (String)item.getUserData();
-			        	Main.showMoviesByGenre(id);
+//			        	MenuItem item = (MenuItem) t.getSource();
+//						String id = (String)item.getUserData();
+			        	Main.showMoviesByGenre(g.getGenreId());
 
 					} catch (IOException e) {
 						e.printStackTrace();							
@@ -63,9 +117,14 @@ public class RootLayoutController {
 	}
 	
 	@FXML 
-	private void onSearch() throws IOException {
+	private void searchMovies() throws IOException {
 		System.out.println(	searchBar.getText());
 		Main.showSearchedMovies(searchBar.getText());
+	}
+	
+	private void searchActors() throws IOException {
+		System.out.println(	"search actor");
+		Main.showSearchedActors(searchBar.getText());
 	}
 	@FXML
 	public void showActorScene() throws IOException {

@@ -49,13 +49,27 @@ public class ActorInfoController {
 	public void getActorInfo (ActorTuple a) throws IOException {
 		actorID = a.getActorId();
 		actorName.setText(a.getActorName());
-		Text movieText = new Text();
 		TextFlow flow = new TextFlow(
 			    new Text("Movies: "));
 		List<MovieTuple.Compact> movies  = db.getMovieInfoByActor(a.getActorId());
 		for(MovieTuple.Compact mv : movies) {
-			flow.getChildren().add(new Hyperlink(mv.getTitle()));
+			Hyperlink link = new Hyperlink(mv.getTitle());
+			link.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent e) {
+			    	e.getSource();
+			      try {
+					Main.showMovieInfoScene(mv);
+				//	System.out.println(mv.getId());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					};
+			    }
+			});
+			flow.getChildren().add(link);
 			flow.getChildren().add(new Text(" ,"));
+			
 		}
 		actorPane.setCenter(flow);
 		loadReviews() ;

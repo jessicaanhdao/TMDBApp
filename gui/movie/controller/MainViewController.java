@@ -74,14 +74,14 @@ public class MainViewController {
         	list.getItems().add(titleLbl);
         	list.getItems().add(rateLbl);
         	list.getItems().add(starLbl);
-        	list.setUserData(mv);
+        	//list.setUserData(mv);
         	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
-					JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+				//	JFXListView<Label> list = (JFXListView<Label>) event.getSource();
 					try {
-						Main.showMovieInfoScene((MovieTuple.Compact)list.getUserData());
+						Main.showMovieInfoScene(mv);
 						//pass in the movie object
 						//show movie list, past movieID 
 					} catch (IOException e) {
@@ -113,13 +113,18 @@ public class MainViewController {
 	public void getSearchedMovies(String keyword) {
 		List<MovieTuple.Compact> searchedMovies = db.searchMovie(keyword);
 		setMovieList(searchedMovies);
+	}
+	public void getSearchedActors(String keyword) {
+		List<ActorTuple> searchedActors = db.searchActor(keyword);
+		getActorList(searchedActors);
+	}
+	public void getRandomActor(){
+		List<ActorTuple> randomActors= db.getAllActors();
+		getActorList(randomActors);
+
 	}	
-	
-	public void getActorList(){
+	public void getActorList(	List<ActorTuple> actorList ){
 		movieGrid.getChildren().clear();
-		System.out.println("start getting all actors");
-		List<ActorTuple> actorList = db.getAllActors();
-		System.out.println("actorlist size: "+actorList.size());
 		List<ActorTuple> actorList2 = actorList.subList(0, 25);
 		// System.out.println("filling UI");
 		int i=0,j=0;
@@ -133,14 +138,14 @@ public class MainViewController {
 	        	list.getItems().add(nameLbl);
 //	        	list.getItems().add(rateLbl);
 //	        	list.getItems().add(starLbl);
-	        	list.setUserData(a);
+	       // 	list.setUserData(a);
 	        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 					@Override
 					public void handle(MouseEvent event) {
-						JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+						//JFXListView<Label> list = (JFXListView<Label>) event.getSource();
 						try {
-							Main.showActorInfoScene((ActorTuple)list.getUserData());
+							Main.showActorInfoScene(a);
 							//pass in the movie object
 							//show movie list, past movieID 
 						} catch (IOException e) {
