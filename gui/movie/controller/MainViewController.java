@@ -78,6 +78,7 @@ public class MainViewController {
 			Label rateLbl = new Label("Rating: " +rating);
 			Label starLbl = new Label ("Starring: ", new Hyperlink());
         	List<MovieTuple.Cast> casts = db.getCastsByMovie(mv.getId()); 
+        	System.out.println("movie id :"+mv.getId()+"genre: "+mv.getTitle());
         	for(MovieTuple.Cast c: casts) {
     			starLbl.setText(starLbl.getText() +c.getActor().getActorName()+". ");
     			
