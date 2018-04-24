@@ -18,6 +18,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -35,7 +36,8 @@ public class MainViewController {
 
 	@FXML
 	private GridPane movieGrid;
-	
+	@FXML
+	private AnchorPane mainView;
 
     List<String> allMovieNames  = new ArrayList<String>();
 		
@@ -163,45 +165,41 @@ public class MainViewController {
 		} else {
 			actorList2 = actorList;
 		}
-		// System.out.println("filling UI");
-		int i=0,j=0;
-		   for (ActorTuple a: actorList2) {
-			   // System.out.println(a.getActorName());
-			   	String name = a.getActorName().toUpperCase();		
-				Label nameLbl = new Label(name);
-				nameLbl.setStyle("-fx-font-weight: bold");
-				
-	        	JFXListView<Label> list = new JFXListView<>();
-	        	list.getItems().add(nameLbl);
-//	        	list.getItems().add(rateLbl);
-//	        	list.getItems().add(starLbl);
-	       // 	list.setUserData(a);
-	        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		JFXListView<Label> list = new JFXListView<>();
+    	int i=0,j=0;
+	  	for (ActorTuple a: actorList2) {
+		   // System.out.println(a.getActorName());
+		   	String name = a.getActorName().toUpperCase();		
+			Label nameLbl = new Label(name);
+			nameLbl.setStyle("-fx-font-weight: bold");
+			
+        	list.getItems().add(nameLbl);
+        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-					@Override
-					public void handle(MouseEvent event) {
-						//JFXListView<Label> list = (JFXListView<Label>) event.getSource();
-						try {
-							Main.showActorInfoScene(a);
-							//pass in the movie object
-							//show movie list, past movieID 
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}					    
-				});
-	        	movieGrid.add(list, i, j);
-	        	
-	        	i++;
-	        	if (i==5 ) {
-	        		i=0;
-	        		j++;
-	        	}
-	        	if (j ==5) {
-	        		j=0;
-	        	}
-		   }
-
+				@Override
+				public void handle(MouseEvent event) {
+					//JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+					try {
+						Main.showActorInfoScene(a);
+						//pass in the movie object
+						//show movie list, past movieID 
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}					    
+			});
+   //     	movieGrid.add(list, i, j);
+        	
+        	i++;
+        	if (i==5 ) {
+        		i=0;
+        		j++;
+        	}
+        	if (j ==5) {
+        		j=0;
+        	}
+	   }
+	  	mainView.getChildren().add(list);
 	}
 	
 }
