@@ -31,19 +31,13 @@ public class RootLayoutController {
     @FXML
 	public void initialize() {
     	setGenres();
-//    	actorMenu.setOnAction(new EventHandler<ActionEvent>() {				
-//			
-//				@Override
-//				public void handle(ActionEvent t) {
-//			        try {
-//			        	
-//			        	Main.showActorScene();;
-//
-//					} catch (IOException e) {
-//						e.printStackTrace();							
-//					}
-//			    }
-//			});
+    	actorMenu.setOnAction(new EventHandler<ActionEvent>() {				
+			
+				@Override
+				public void handle(ActionEvent t) {
+			        searchBar.setPromptText("Search Actors");
+			    }
+			});
     }
 	private void setGenres(){
 		for (GenreTuple g: allGenres) {

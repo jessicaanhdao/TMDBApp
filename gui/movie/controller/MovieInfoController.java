@@ -58,8 +58,7 @@ public class MovieInfoController {
 		AnchorPane reviewScene = loader.load();
 		ReviewController controller = loader.<ReviewController>getController();			
 		controller.getReviewsByMovie(movieID);
-		controller.loadReviews();
-   // 	System.out.println("1/reviews for movieID in movieinfo:" + movieID);
+		controller.loadMovieReviews();
 		moviePane.setRight(reviewScene);
 	}
 	public void getMovieInfo(MovieTuple.Compact mv) throws IOException {

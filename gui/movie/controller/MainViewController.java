@@ -133,21 +133,21 @@ public class MainViewController {
 	        	list.getItems().add(nameLbl);
 //	        	list.getItems().add(rateLbl);
 //	        	list.getItems().add(starLbl);
-//	        	list.setUserData(mv);
-//	        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//					@Override
-//					public void handle(MouseEvent event) {
-//						JFXListView<Label> list = (JFXListView<Label>) event.getSource();
-//						try {
-//							Main.showMovieInfoScene((MovieTuple.Compact)list.getUserData());
-//							//pass in the movie object
-//							//show movie list, past movieID 
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//					}					    
-//				});
+	        	list.setUserData(a);
+	        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+						try {
+							Main.showActorInfoScene((ActorTuple)list.getUserData());
+							//pass in the movie object
+							//show movie list, past movieID 
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}					    
+				});
 	        	movieGrid.add(list, i, j);
 	        	
 	        	i++;

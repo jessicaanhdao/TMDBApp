@@ -10,9 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import movie.controller.ActorInfoController;
 import movie.controller.MainViewController;
 import movie.controller.MovieInfoController;
 import movie.controller.ReviewController;
+import movie.database.ActorTuple;
 import movie.database.DBHandler;
 import movie.database.GenreTuple;
 import movie.database.MovieTuple;
@@ -84,10 +86,16 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
 		AnchorPane mainViewScene = loader.load();
 		MainViewController controller = loader.<MainViewController>getController();			
-		System.out.println("showed actor list");
-
 		controller.getActorList();
 		rootLayout.setCenter(mainViewScene);
+	}
+	public static void showActorInfoScene(ActorTuple a) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/ActorInfo.fxml"));
+		AnchorPane movieInfoScene = loader.load();
+		ActorInfoController controller = loader.<ActorInfoController>getController();			
+		controller.getActorInfo(a);
+		rootLayout.setCenter(movieInfoScene);
 	}
 	public static void main(String[] args) {
 		launch(args);
