@@ -57,6 +57,7 @@ public class DBHandler {
 				}
 			}
 			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -79,6 +80,7 @@ public class DBHandler {
 				}
 			}
 			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -98,14 +100,10 @@ public class DBHandler {
 				ret.add(t);
 			}
 			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
-		return ret;
-	}
-	
-	public List<MovieTuple> getMoviesByPopularity(){
-		List<MovieTuple> ret = new ArrayList<>();
 		return ret;
 	}
 	
@@ -121,6 +119,8 @@ public class DBHandler {
 			while(r.next()) {
 				ret.add(new GenreTuple(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -139,6 +139,8 @@ public class DBHandler {
 			while(r.next()) {
 				ret.add(new KeywordTuple(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -158,6 +160,8 @@ public class DBHandler {
 			while (r.next()) {
 				ret.add(new MovieTuple.Cast(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -179,6 +183,7 @@ public class DBHandler {
 				}
 			}
 			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -197,6 +202,8 @@ public class DBHandler {
 			while (r.next()) {
 				ret.add(new MovieTuple.Compact(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -227,6 +234,8 @@ public class DBHandler {
 			while (r.next()) {
 				ret.add(new MovieTuple.Compact(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -255,6 +264,8 @@ public class DBHandler {
 			while(r.next()) {
 				ret.add(new MovieTuple.Compact(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -277,6 +288,8 @@ public class DBHandler {
 				movie.setGenres(this.getGenresByMovie(movieId));
 				movie.setKeywords(this.getKeywordsByMovie(movieId));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -298,6 +311,8 @@ public class DBHandler {
 			while (r.next()) {
 				ret.add(new MovieTuple.Compact(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -321,6 +336,8 @@ public class DBHandler {
 				ActorTuple a = new ActorTuple(r);
 				ret.add(a);
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -344,6 +361,8 @@ public class DBHandler {
 			while (r.next()) {
 				ret.add(new MovieTuple.Compact(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (Exception e) {
 			// e.printStackTrace();
 			System.err.println(e.getClass().getName());
@@ -363,6 +382,8 @@ public class DBHandler {
 			if (r.next()) {
 				actor = new ActorTuple(r);
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -380,8 +401,9 @@ public class DBHandler {
 			prepare.setString(2, review.getMovieId());
 			prepare.setString(3, review.getReview());
 			prepare.setFloat(4, review.getRating());
-			
-			return prepare.executeUpdate();
+			int ret = prepare.executeUpdate();
+			prepare.close();
+			return ret;
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 			return -1;
@@ -396,7 +418,9 @@ public class DBHandler {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			prepare.setString(1, studentId);
 			prepare.setString(2, movieId);
-			return prepare.executeUpdate();
+			int ret = prepare.executeUpdate();
+			prepare.close();
+			return ret;
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 			return -1;
@@ -415,6 +439,8 @@ public class DBHandler {
 			while(r.next()) {
 				ret.add(new MovieReviewTuple(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -433,7 +459,9 @@ public class DBHandler {
 			prepare.setString(2, review.getActorId());
 			prepare.setString(3, review.getReview());
 			prepare.setFloat(4, review.getRating());
-			return prepare.executeUpdate();
+			int ret = prepare.executeUpdate();
+			prepare.close();
+			return ret;
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 			return -1;
@@ -448,7 +476,9 @@ public class DBHandler {
 			PreparedStatement prepare = conn.prepareStatement(sql);
 			prepare.setString(1, studentId);
 			prepare.setString(2, actorId);
-			return prepare.executeUpdate();
+			int ret = prepare.executeUpdate();
+			prepare.close();
+			return ret;
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 			return -1;
@@ -467,6 +497,8 @@ public class DBHandler {
 			while(r.next()) {
 				ret.add(new ActorReviewTuple(r));
 			}
+			prepare.close();
+			r.close();
 		} catch (SQLException e) {
 			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
 		}
@@ -490,6 +522,8 @@ public class DBHandler {
 				InputStream in = urlConn.getInputStream();
 				img = new Image(in);
 			}
+			prepare.close();
+			r.close();
 			return img;
 		} catch (Exception e) {
 			// e.printStackTrace();
