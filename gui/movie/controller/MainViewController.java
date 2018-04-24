@@ -150,7 +150,7 @@ public class MainViewController {
 		getActorList(searchedActors);
 	}
 	public void getRandomActor(){
-		List<ActorTuple> randomActors= db.getAllActors();
+		List<ActorTuple> randomActors= db.getActors(25);
 		getActorList(randomActors);
 
 	}	

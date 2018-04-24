@@ -85,6 +85,25 @@ public class DBHandler {
 		return ret;
 	}
 	
+	public List<ActorTuple> getActors(int num) {
+		// "SELECT DISTINCT * FROM %s WHERE LENGTH(ACTOR_ID) < 3" this one is workaround WWW
+		String sql = String.format("SELECT DISTINCT * FROM %s", ActorTuple.TableName);
+		Connection conn = CurrentServer.getConnection();
+		List<ActorTuple> ret = new ArrayList<>();
+		try {
+			PreparedStatement prepare = conn.prepareStatement(sql);
+			ResultSet r = prepare.executeQuery();
+			while(r.next() && num-- > 0) {
+				ActorTuple t = new ActorTuple(r);
+				ret.add(t);
+			}
+			prepare.close();
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		return ret;
+	}
+	
 	public List<MovieTuple> getMoviesByPopularity(){
 		List<MovieTuple> ret = new ArrayList<>();
 		return ret;
