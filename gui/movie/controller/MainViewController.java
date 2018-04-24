@@ -125,7 +125,12 @@ public class MainViewController {
 	}	
 	public void getActorList(	List<ActorTuple> actorList ){
 		movieGrid.getChildren().clear();
-		List<ActorTuple> actorList2 = actorList.subList(0, 25);
+		List<ActorTuple> actorList2 = null;
+		if (actorList.size() > 25) {
+			actorList2 = actorList.subList(0, 25);
+		} else {
+			actorList2 = actorList;
+		}
 		// System.out.println("filling UI");
 		int i=0,j=0;
 		   for (ActorTuple a: actorList2) {
