@@ -7,6 +7,7 @@ import java.util.List;
 
 public class MovieTuple {
 	public static final String TableName = "MAIN_MOVIE";
+	public static final String ImageTableName = "MOVIE_IMAGE";
 	
 	public static final String MovieIdAttr = "movie_id";
 	public static final String HomepageAttr = "homepage";
@@ -17,6 +18,9 @@ public class MovieTuple {
 	public static final String VoteAvgAttr = "vote_average";
 	public static final String VoteCntAttr = "vote_count";
 	public static final String RelaseDateAttr = "release_date";
+	
+	// for movie image table
+	public static final String MovieImageUrlAttr = "IMAGE_LINK";
 	
 	public static class Compact {
 		private String movieId;

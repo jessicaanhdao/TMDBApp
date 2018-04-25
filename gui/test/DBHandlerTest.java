@@ -149,7 +149,7 @@ class DBHandlerTest {
 		double w = img.getWidth();
 		double h = img.getHeight();
 		assertTrue(w > 0 && h > 0);
-		String msg = String.format("image size: w=%f, h=%f", w, h);
+		String msg = String.format("testGetActorImage id=%s, image size: w=%f, h=%f", actorId, w, h);
 		System.out.println(msg);
 	}
 	
@@ -236,6 +236,19 @@ class DBHandlerTest {
 			float m2 = movies.get(i+1).getPopularity();
 			assertTrue(m1 >= m2);
 		}
+	}
+	
+	@Test
+	void testGetMovieImage() {
+		String movieId = "675";
+		DBHandler db = new DBHandler();
+		MovieTuple movie = db.getMovieById(movieId);
+		Image img = db.tryGetMovieImage(movie.getMovieId());
+		double w = img.getWidth();
+		double h = img.getHeight();
+		assertTrue(w > 0 && h > 0);
+		String msg = String.format("testGetMovieImage id=%s, image size: w=%f, h=%f", movieId, w, h);
+		System.out.println(msg);
 	}
 	
 	@Test

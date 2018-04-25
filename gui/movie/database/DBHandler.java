@@ -536,7 +536,6 @@ public class DBHandler {
 		return ret;
 	}
 	
-	// well..this is stupid
 	public Image tryGetActorImage(String actorId) {
 		String sql = String.format("SELECT %s FROM %s WHERE %s = ?", ActorTuple.ActorImageUrlAttr, 
 				ActorTuple.ImageTableName, ActorTuple.ActorIdAttr);
@@ -555,8 +554,44 @@ public class DBHandler {
 				InputStream in = urlConn.getInputStream();
 				img = new Image(in);
 			}
-			prepare.close();
-			r.close();
+			
+		} catch (Exception e) {
+			// e.printStackTrace();
+			System.err.println(e.getClass().getName());
+		}
+		
+		try {
+			if (prepare != null) {
+				prepare.close();
+			}
+			if (r != null) {
+				r.close();
+			}
+		} catch (SQLException e) {
+			System.err.println(String.format("%s ; error code=%s", e.getClass().getName(), e.getErrorCode()));
+		}
+		
+		return img;
+	}
+	
+	public Image tryGetMovieImage(String movieId) {
+		String sql = String.format("SELECT %s FROM %s WHERE %s = ?", MovieTuple.MovieImageUrlAttr, 
+				MovieTuple.ImageTableName, MovieTuple.MovieIdAttr);
+		Connection conn = CurrentServer.getConnection();
+		Image img = null;
+		PreparedStatement prepare = null;
+		ResultSet r = null;
+		try {
+			prepare = conn.prepareStatement(sql);
+			prepare.setString(1, movieId);
+			r = prepare.executeQuery();
+			if (r.next()) {
+				String imageUrlPath = r.getString(MovieTuple.MovieImageUrlAttr);
+				URL url = new URL(imageUrlPath);
+				URLConnection urlConn = url.openConnection();
+				InputStream in = urlConn.getInputStream();
+				img = new Image(in);
+			}
 			
 		} catch (Exception e) {
 			// e.printStackTrace();
