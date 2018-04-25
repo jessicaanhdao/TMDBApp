@@ -59,6 +59,7 @@ public class ReviewController {
     		TextArea review = new TextArea(r.getReview());
 //    		System.out.println("review: "+r.getReview());
     		review.setPrefHeight(50);
+    		review.setPrefWidth(100);
     		Rating rating = new Rating();
     		rating.setPartialRating(true);
     		rating.setRating(r.getRating());		
@@ -117,6 +118,7 @@ public class ReviewController {
 	    		id.setStyle("-fx-font-weight: bold");
 	    		TextArea review = new TextArea(r.getReview());
 	    		review.setPrefHeight(50);
+	    		review.setPrefWidth(100);
 	    		Rating rating = new Rating();
 	    		rating.setPartialRating(true);
 	    		rating.setRating(r.getRating());		
@@ -142,6 +144,7 @@ public class ReviewController {
 	    		pane.setCenter(review);
 	    		pane.setBottom(rating);
 	    		pane.setRight(delBut);
+	    		
 	    		reviewList.getItems().add(pane);
 	       	}
 	    }
