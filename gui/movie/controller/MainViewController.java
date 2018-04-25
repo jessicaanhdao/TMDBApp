@@ -89,7 +89,8 @@ public class MainViewController {
     		}
         	starLbl.setWrapText(true);
         	starLbl.setTextAlignment(TextAlignment.JUSTIFY);
-        	starLbl.setMinWidth(100);
+        //	starLbl.setStyle("-fx-max-width:150px");
+        	
         	JFXListView<Label> list = new JFXListView<>();        	
         	list.getItems().add(titleLbl);
         	list.getItems().add(rateLbl);
@@ -185,7 +186,7 @@ public class MainViewController {
 				public void handle(MouseEvent event) {
 					try {
 						Main.showActorInfoScene(a);
-						System.out.println("click on: "+a.getActorName());
+					//	System.out.println("click on: "+a.getActorName());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

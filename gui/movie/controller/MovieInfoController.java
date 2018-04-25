@@ -28,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
@@ -113,8 +114,11 @@ public class MovieInfoController {
 		AnchorPane anchorPane2 = new AnchorPane();
 		 Label label2 = new Label(overview);
 		 
-		 label2.prefWidth(100);
-		 System.out.println("width: "+label2.prefHeightProperty());
+		// label2.maxWidth(100);
+		 label2.setWrapText(true);
+		 label2.setTextAlignment(TextAlignment.JUSTIFY);
+		 label2.setStyle("-fx-max-width:400px");
+		// System.out.println("width: "+label2.prefWidthProperty().getValue());
 		anchorPane2.getChildren().add(label2);
 		valCol.getItems().add(anchorPane2);
 
@@ -151,6 +155,7 @@ public class MovieInfoController {
 			flow.getChildren().add(new Text(" ,"));
 			
 		}
+    	flow.setStyle("-fx-max-width:400px");
     	AnchorPane anchorPane5 = new AnchorPane();
     	anchorPane5.getChildren().add(flow);
   		valCol.getItems().add(anchorPane5);
