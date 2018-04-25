@@ -43,7 +43,7 @@ public class Main extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
 		AnchorPane mainViewScene = loader.load();
-		mainViewScene.setPrefWidth(rootLayout.getWidth()-10);
+		//mainViewScene.setPrefWidth(rootLayout.getWidth()-10);
 		rootLayout.setCenter(mainViewScene);
 	}
 	

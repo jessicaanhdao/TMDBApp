@@ -35,6 +35,9 @@
     -fx-label-line-length: 8;
       
       }
+.menu-item {
+	    -fx-background-color: black;
+}
       
 .menu-item:hover {
     -fx-background-color: #EEE2DC;

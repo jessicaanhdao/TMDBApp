@@ -17,11 +17,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
@@ -34,8 +36,8 @@ import movie.database.MovieTuple;
 
 public class MainViewController {
 
-	@FXML
-	private GridPane movieGrid;
+	
+	GridPane movieGrid = new GridPane();
 	@FXML
 	private AnchorPane mainView;
 
@@ -80,7 +82,7 @@ public class MainViewController {
 			Label rateLbl = new Label("Rating: " +rating);
 			Label starLbl = new Label ("Starring: ", new Hyperlink());
         	List<MovieTuple.Cast> casts = db.getCastsByMovie(mv.getId()); 
-        	System.out.println("movie id :"+mv.getId()+"genre: "+mv.getTitle());
+//        	System.out.println("movie id :"+mv.getId()+"genre: "+mv.getTitle());
         	for(MovieTuple.Cast c: casts) {
     			starLbl.setText(starLbl.getText() +c.getActor().getActorName()+". ");
     			
@@ -134,6 +136,8 @@ public class MainViewController {
         		j=0;
         	}
 	   }
+	   mainView.getChildren().clear();
+	   mainView.getChildren().add(movieGrid);
   //     movieList.setItems(FXCollections.observableArrayList(allMovieNames));
    }
 	
@@ -141,7 +145,7 @@ public class MainViewController {
 	//	DBHandler db = new DBHandler();
 		 List<MovieTuple.Compact> genredMovies = db.getMovieInfoByGenre(GenreId, 25);
 		 String msg = String.format("in mainctrlr. clicked genreid=%s movie num=%d", GenreId, genredMovies.size());
-		 System.out.println(msg);
+//		 System.out.println(msg);
 		 setMovieList(genredMovies);
 	}
 	public void getSearchedMovies(String keyword) {
@@ -166,21 +170,25 @@ public class MainViewController {
 			actorList2 = actorList;
 		}
 		JFXListView<Label> list = new JFXListView<>();
+        VBox box = new VBox();
     	int i=0,j=0;
 	  	for (ActorTuple a: actorList2) {
-		   // System.out.println(a.getActorName());
+		    System.out.println(a.getActorName());
 		   	String name = a.getActorName().toUpperCase();		
 			Label nameLbl = new Label(name);
-			nameLbl.setStyle("-fx-font-weight: bold");
+			nameLbl.setStyle("-fx-font-weight: bold; ");
 			
-        	list.getItems().add(nameLbl);
-        	list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        	//list.setUserData(a);
+        	nameLbl.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
-					//JFXListView<Label> list = (JFXListView<Label>) event.getSource();
+					
+//					JFXListView<Label> listx = (JFXListView<Label>) event.getSource();
+//					ActorTuple ac = (ActorTuple) listx.getUserData();
 					try {
 						Main.showActorInfoScene(a);
+						System.out.println("click on: "+a.getActorName());
 						//pass in the movie object
 						//show movie list, past movieID 
 					} catch (IOException e) {
@@ -188,18 +196,14 @@ public class MainViewController {
 					}
 				}					    
 			});
+        	//list.getItems().add(nameLbl);
+        	box.getChildren().add(nameLbl);
+        	box.setStyle("-fx-background-color:white; -fx-opacity:0.9");
    //     	movieGrid.add(list, i, j);
         	
-        	i++;
-        	if (i==5 ) {
-        		i=0;
-        		j++;
-        	}
-        	if (j ==5) {
-        		j=0;
-        	}
+        	
 	   }
-	  	mainView.getChildren().add(list);
+	  	mainView.getChildren().add(box);
 	}
 	
 }
