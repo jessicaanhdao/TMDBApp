@@ -176,21 +176,16 @@ public class MainViewController {
 		    System.out.println(a.getActorName());
 		   	String name = a.getActorName().toUpperCase();		
 			Label nameLbl = new Label(name);
-			nameLbl.setStyle("-fx-font-weight: bold; ");
+			nameLbl.setStyle("-fx-font-weight: bold; -fx-font-size:30px;");
 			
         	//list.setUserData(a);
         	nameLbl.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
-					
-//					JFXListView<Label> listx = (JFXListView<Label>) event.getSource();
-//					ActorTuple ac = (ActorTuple) listx.getUserData();
 					try {
 						Main.showActorInfoScene(a);
 						System.out.println("click on: "+a.getActorName());
-						//pass in the movie object
-						//show movie list, past movieID 
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -53,11 +54,19 @@ public class MovieInfoController {
     
     @FXML
     private BorderPane moviePane;
+    
+    @FXML
+    private ImageView movieImg;
+    
+    @FXML
+    private AnchorPane imgPane;
+    
+   // @FXML
+//    private AnchorPane title;
 
 	@FXML
 	public void initialize() throws IOException {
-		
-	}
+			}
 	private void loadReviews() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/Review.fxml"));
@@ -74,6 +83,11 @@ public class MovieInfoController {
 		
 		DBHandler db = new DBHandler();
 		MovieTuple movieInfo = db.getMovieById(mv.getId());
+		movieImg.setImage(db.tryGetMovieImage(mv.getId()));
+		movieImg.setFitHeight(300);
+		
+//		movieImg.fitWidthProperty().bind(imgPane.widthProperty());
+//		movieImg.fitHeightProperty().bind(imgPane.heightProperty());
 		String overview = movieInfo.getOverview();
 //		genreID = movieInfo.getGenres(); this is a list
 		movieName.setText(mv.getTitle());

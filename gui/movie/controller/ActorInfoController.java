@@ -74,8 +74,10 @@ public class ActorInfoController {
 			flow.getChildren().add(new Text(" ,"));
 			
 		}
+		flow.setStyle("-fx-background-color:white; -fx-opacity:0.9");
 		actorPane.setCenter(flow);
 		actorImg.setImage(db.tryGetActorImage(a.getActorId()));
+		actorImg.setFitHeight(300);
 		loadReviews() ;
 	}
 	@FXML
