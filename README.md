@@ -3,3 +3,5 @@ Directory structure:
 - java GUI: gui/
     - There are Eclipse project data in gui/ , so open this folder as a project in Eclipse.
 - sql code used to create tables and data in database: sql commands/
+
+(check localANh branch for my commits)
